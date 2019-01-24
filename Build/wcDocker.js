@@ -2628,7 +2628,8 @@ define('wcDocker/splitter',[
         __init: function () {
             this.$pane.push($('<div class="wcLayoutPane wcScrollableX wcScrollableY">'));
             this.$pane.push($('<div class="wcLayoutPane wcScrollableX wcScrollableY">'));
-            this.$bar = $('<div class="wcSplitterBar">');
+            this.$bar = $('<div class="wcSplitterBar"><div class="wcSplitterBarLine"></div></div>');
+            this.$barline = this.$bar.find('.wcSplitterBarLine');
 
             if (this._orientation) {
                 // this.$pane[0].addClass('wcTall');
@@ -2717,14 +2718,15 @@ define('wcDocker/splitter',[
 
             if (this._orientation === wcDocker.ORIENTATION.HORIZONTAL) {
                 var barSize = this.$bar.outerWidth() / 2;
+                var barLineSize = this.$barline.outerWidth() / 2;
                 var barBorder = parseInt(this.$bar.css('border-top-width')) + parseInt(this.$bar.css('border-bottom-width'));
                 if (opt_dontMove) {
                     var offset = this._pixelPos - (this.$container.offset().left + parseInt(this.$container.css('border-left-width'))) - this.$bar.outerWidth() / 2;
-                    this._pos = offset / (width - this.$bar.outerWidth());
+                    this._pos = offset / (width - this.$barline.outerWidth());
                 }
 
                 this._pos = Math.min(Math.max(this._pos, 0), 1);
-                var size = (width - this.$bar.outerWidth()) * this._pos + barSize;
+                var size = (width - this.$barline.outerWidth()) * this._pos + barLineSize;
                 if (minSize) {
                     size = Math.max(minSize.x, size);
                 }
@@ -2746,28 +2748,29 @@ define('wcDocker/splitter',[
                 this.$bar.css('left', size - barSize);
                 this.$bar.css('top', top);
                 this.$bar.css('height', height - barBorder - bottom);
-                this.$pane[0].css('width', size - barSize);
+                this.$pane[0].css('width', size - barLineSize);
                 this.$pane[0].css('left', '0px');
                 this.$pane[0].css('right', '');
                 this.$pane[0].css('top', top);
                 this.$pane[0].css('bottom', bottom);
                 this.$pane[1].css('left', '');
                 this.$pane[1].css('right', '0px');
-                this.$pane[1].css('width', width - size - barSize - parseInt(this.$container.css('border-left-width')) * 2);
+                this.$pane[1].css('width', width - size - barLineSize - parseInt(this.$container.css('border-left-width')) * 2);
                 this.$pane[1].css('top', top);
                 this.$pane[1].css('bottom', bottom);
 
                 this._pixelPos = this.$bar.offset().left + barSize;
             } else {
                 var barSize = this.$bar.outerHeight() / 2;
+                var barLineSize = this.$barline.outerHeight() / 2;
                 var barBorder = parseInt(this.$bar.css('border-left-width')) + parseInt(this.$bar.css('border-right-width'));
                 if (opt_dontMove) {
                     var offset = this._pixelPos - (this.$container.offset().top + parseInt(this.$container.css('border-top-width'))) - this.$bar.outerHeight() / 2;
-                    this._pos = offset / (height - this.$bar.outerHeight());
+                    this._pos = offset / (height - this.$barline.outerHeight());
                 }
 
                 this._pos = Math.min(Math.max(this._pos, 0), 1);
-                var size = (height - this.$bar.outerHeight()) * this._pos + barSize;
+                var size = (height - this.$barline.outerHeight()) * this._pos + barSize;
                 if (minSize) {
                     size = Math.max(minSize.y, size);
                 }
@@ -2789,14 +2792,14 @@ define('wcDocker/splitter',[
                 this.$bar.css('top', size - barSize);
                 this.$bar.css('left', left);
                 this.$bar.css('width', width - barBorder - bottom);
-                this.$pane[0].css('height', size - barSize);
+                this.$pane[0].css('height', size - barLineSize);
                 this.$pane[0].css('top', '0px');
                 this.$pane[0].css('bottom', '');
                 this.$pane[0].css('left', left);
                 this.$pane[0].css('right', right);
                 this.$pane[1].css('top', '');
                 this.$pane[1].css('bottom', '0px');
-                this.$pane[1].css('height', height - size - barSize - parseInt(this.$container.css('border-top-width')) * 2);
+                this.$pane[1].css('height', height - size - barLineSize - parseInt(this.$container.css('border-top-width')) * 2);
                 this.$pane[1].css('left', left);
                 this.$pane[1].css('right', right);
 

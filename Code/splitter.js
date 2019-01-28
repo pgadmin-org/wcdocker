@@ -364,8 +364,8 @@ define([
         __init: function () {
             this.$pane.push($('<div class="wcLayoutPane wcScrollableX wcScrollableY">'));
             this.$pane.push($('<div class="wcLayoutPane wcScrollableX wcScrollableY">'));
-            this.$bar = $('<div class="wcSplitterBar"><div class="wcSplitterBarLine"></div></div>');
-            this.$barline = this.$bar.find('.wcSplitterBarLine');
+            this.$bar = $('<div class="wcSplitterBar">');
+            this.$barline = $('<div class="wcSplitterBarLine">').appendTo(this.$bar);
 
             if (this._orientation) {
                 // this.$pane[0].addClass('wcTall');

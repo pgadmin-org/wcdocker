@@ -222,18 +222,17 @@ html, body {
 .wcSplitterBar {
   z-index: 2;
   position: absolute;
-  border: 1px outset darkgray;
   display: flex;
 }
 
 .wcSplitterBarV {
-  width: 11px;
+  width: 2px;
   height: 100%;
   cursor: ew-resize;
 }
 
 .wcSplitterBarH {
-  height: 11px;
+  height: 2px;
   width: 100%;
   cursor: ns-resize;
 }
@@ -253,16 +252,14 @@ html, body {
 }
 
 .wcSplitterBarV .wcSplitterBarLine {
-  width: 1px;
+  width: 2px;
   height: 100%;
-  background-color: darkgray;
   margin: 0 auto;
 }
 
 .wcSplitterBarH .wcSplitterBarLine {
   width: 100%;
-  height: 1px;
-  background-color: darkgray;
+  height: 2px;
   margin: auto 0;
 }
 

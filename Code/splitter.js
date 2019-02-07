@@ -457,7 +457,7 @@ define([
                 var barLineSize = this.$barline.outerWidth() / 2;
                 var barBorder = parseInt(this.$bar.css('border-top-width')) + parseInt(this.$bar.css('border-bottom-width'));
                 if (opt_dontMove) {
-                    var offset = this._pixelPos - (this.$container.offset().left + parseInt(this.$container.css('border-left-width'))) - this.$bar.outerWidth() / 2;
+                    var offset = this._pixelPos - (this.$container.offset().left + parseInt(this.$container.css('border-left-width'))) - barLineSize;
                     this._pos = offset / (width - this.$barline.outerWidth());
                 }
 
@@ -501,7 +501,7 @@ define([
                 var barLineSize = this.$barline.outerHeight() / 2;
                 var barBorder = parseInt(this.$bar.css('border-left-width')) + parseInt(this.$bar.css('border-right-width'));
                 if (opt_dontMove) {
-                    var offset = this._pixelPos - (this.$container.offset().top + parseInt(this.$container.css('border-top-width'))) - this.$bar.outerHeight() / 2;
+                    var offset = this._pixelPos - (this.$container.offset().top + parseInt(this.$container.css('border-top-width'))) - barLineSize;
                     this._pos = offset / (height - this.$barline.outerHeight());
                 }
 

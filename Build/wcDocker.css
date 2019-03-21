@@ -193,14 +193,14 @@ html, body {
   background-color: #222;
 }
 
-.wcFrameEdgeVE, .wcFrameEdgeVW {
+.wcFrameEdgeE, .wcFrameEdgeW {
   width: 2px;
   cursor: ew-resize;
   border-top: 0px;
   border-bottom: 0px;
 }
 
-.wcFrameEdgeHN, .wcFrameEdgeHS {
+.wcFrameEdgeN, .wcFrameEdgeS {
   height: 2px;
   cursor: ns-resize;
   border-left: 0px;

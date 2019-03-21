@@ -3436,10 +3436,10 @@ define('wcDocker/frame',[
             this.$frame.append(this.$center);
 
             if (this._isFloating) {
-                this.$top = $('<div class="wcFrameEdgeHN wcFrameEdge"></div>').css('top', '-'+this._borderWidth).css('left', '0px').css('right', '0px');
-                this.$bottom = $('<div class="wcFrameEdgeHS wcFrameEdge"></div>').css('bottom', '-'+this._borderWidth).css('left', '0px').css('right', '0px');
-                this.$left = $('<div class="wcFrameEdgeVW wcFrameEdge"></div>').css('left', '-'+this._borderWidth).css('top', '0px').css('bottom', '0px');
-                this.$right = $('<div class="wcFrameEdgeVE wcFrameEdge"></div>').css('right', '-'+this._borderWidth).css('top', '0px').css('bottom', '0px');
+                this.$top = $('<div class="wcFrameEdgeN wcFrameEdge"></div>').css('top', '-'+this._borderWidth).css('left', '0px').css('right', '0px');
+                this.$bottom = $('<div class="wcFrameEdgeS wcFrameEdge"></div>').css('bottom', '-'+this._borderWidth).css('left', '0px').css('right', '0px');
+                this.$left = $('<div class="wcFrameEdgeW wcFrameEdge"></div>').css('left', '-'+this._borderWidth).css('top', '0px').css('bottom', '0px');
+                this.$right = $('<div class="wcFrameEdgeE wcFrameEdge"></div>').css('right', '-'+this._borderWidth).css('top', '0px').css('bottom', '0px');
                 this.$corner1 = $('<div class="wcFrameCornerNW wcFrameEdge"></div>').css('top', '-'+this._borderWidth).css('left', '-'+this._borderWidth);
                 this.$corner2 = $('<div class="wcFrameCornerNE wcFrameEdge"></div>').css('top', '-'+this._borderWidth).css('right', '-'+this._borderWidth);
                 this.$corner3 = $('<div class="wcFrameCornerSE wcFrameEdge"></div>').css('bottom', '-'+this._borderWidth).css('right', '-'+this._borderWidth);

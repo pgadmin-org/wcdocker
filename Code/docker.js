@@ -1263,8 +1263,9 @@ define([
         },
 
         /**
-         * Sets layout lock level of the docker instance
+         * Sets the lock level of the docker layout.
          * @function module:wcDocker#lockLayout
+         * @param {module:wcDocker.LOCK_LAYOUT_LEVEL} lockLevel  The level at which docker layout be locked at.
          */
         lockLayout: function (lockLevel) {
             if(lockLevel >= wcDocker.LOCK_LAYOUT_LEVEL.NONE  &&
@@ -1566,7 +1567,7 @@ define([
                         }
                     }
                 } else if (self._ghost) {
-                    if(self._lockLayoutLevel >= wcDocker.LOCK_LAYOUT_LEVEL.NO_DOCK) {
+                    if(self._lockLayoutLevel >= wcDocker.LOCK_LAYOUT_LEVEL.PREVENT_DOCKING) {
                         return true;
                     }
                     if (self._draggingFrame) {

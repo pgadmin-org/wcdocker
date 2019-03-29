@@ -128,6 +128,22 @@ define([], function () {
     ];
 
     /**
+     * The levels of locking the layout
+     * @member module:wcDocker.LOCK_LAYOUT_LEVEL
+     * @property {String} NONE=0 - No locking, allow all events
+     * @property {String} NO_DOCK=1 - Disable docking and un-docking
+     * @property {String} FULL=2 - Full lock, no docking, undocking, resizing.
+     * @version 3.0.0
+     * @const
+     */
+
+    wcDocker.LOCK_LAYOUT_LEVEL = {
+        NONE: 0,
+        NO_DOCK: 1,
+        FULL: 2
+    };
+
+    /**
      * The name of the placeholder panel.
      * @private
      * @memberOf module:wcDocker

@@ -111,6 +111,7 @@ define([
             };
 
             this._layoutChangeEvActive = false;
+            this._lockLayoutLevel = wcDocker.LOCK_LAYOUT_LEVEL.NONE;
 
             var defaultOptions = {
                 themePath: 'Themes',
@@ -1261,6 +1262,16 @@ define([
             this.off();
         },
 
+        /**
+         * Sets layout lock level of the docker instance
+         * @function module:wcDocker#lockLayout
+         */
+        lockLayout: function (lockLevel) {
+            if(lockLevel >= wcDocker.LOCK_LAYOUT_LEVEL.NONE  &&
+                lockLevel <= wcDocker.LOCK_LAYOUT_LEVEL.FULL) {
+                this._lockLayoutLevel = lockLevel;
+            }
+        },
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // Private Functions
@@ -1533,8 +1544,14 @@ define([
                 lastMouseMove = new Date().getTime();
 
                 if (self._draggingSplitter) {
+                    if(self._lockLayoutLevel == wcDocker.LOCK_LAYOUT_LEVEL.FULL) {
+                        return true;
+                    }
                     self._draggingSplitter.__moveBar(mouse);
                 } else if (self._draggingFrameSizer) {
+                    if(self._lockLayoutLevel == wcDocker.LOCK_LAYOUT_LEVEL.FULL) {
+                        return true;
+                    }
                     var offset = self.$container.offset();
                     mouse.x += offset.left;
                     mouse.y += offset.top;
@@ -1549,6 +1566,9 @@ define([
                         }
                     }
                 } else if (self._ghost) {
+                    if(self._lockLayoutLevel >= wcDocker.LOCK_LAYOUT_LEVEL.NO_DOCK) {
+                        return true;
+                    }
                     if (self._draggingFrame) {
                         self._ghost.__move(mouse);
                         var forceFloat = !(self._draggingFrame._isFloating || mouse.which === 1);

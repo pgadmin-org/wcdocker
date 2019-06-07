@@ -104,6 +104,8 @@ html, body {
   bottom: 0px;
 }
 
+.wcLockPreventDocking .wcPanelTab,
+.wcLockFull .wcPanelTab,
 .wcFrameTitleBar.wcNotMoveable {
   cursor: default;
 }

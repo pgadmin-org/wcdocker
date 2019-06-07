@@ -1,4 +1,95 @@
-/*!
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title> Source: docker.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.slate.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html"><div style='font-size:15px;line-height:15px;margin-top:-5px;'>Web Cabin Docker<br>v3.0.0 (pre-release)</div></a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="module-wcBase.html">wcBase</a></li><li><a href="module-wcCollapser.html">wcCollapser</a></li><li><a href="module-wcDocker.html">wcDocker</a></li><li><a href="module-wcDrawer.html">wcDrawer</a></li><li><a href="module-wcFrame.html">wcFrame</a></li><li><a href="module-wcGhost.html">wcGhost</a></li><li><a href="module-wcIFrame.html">wcIFrame</a></li><li><a href="module-wcLayout.html">wcLayout</a></li><li><a href="module-wcLayoutSimple.html">wcLayoutSimple</a></li><li><a href="module-wcLayoutTable.html">wcLayoutTable</a></li><li><a href="module-wcPanel.html">wcPanel</a></li><li><a href="module-wcSplitter.html">wcSplitter</a></li><li><a href="module-wcTabFrame.html">wcTabFrame</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="module-wcDocker.html#event:onEvent">wcDocker#event:onEvent</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="tutorial-1.0-getting-started.html">Getting Started</a></li><li><a href="tutorial-2.0-tips-and-tricks.html">Tips and Tricks</a></li><li><a href="tutorial-3.0-widgets.html">Widgets</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="externals.list.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="external-domNode.html">domNode</a></li><li><a href="external-jQuery.html">jQuery</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: docker.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">/*!
  * Web Cabin Docker - Docking Layout Interface.
  *
  * Dependencies:
@@ -50,7 +141,7 @@ define([
      * @class
      *
      * The main docker instance.  This manages all of the docking panels and user input.
-     * There should only be one instance of this, although it is not enforced.<br>
+     * There should only be one instance of this, although it is not enforced.&lt;br>
      * See {@tutorial getting-started}
      */
     var Module = dcl(base, {
@@ -65,8 +156,8 @@ define([
         constructor: function (container, options) {
 
             this.$outer = $(container);
-            this.$container = $('<div class="wcDocker">');
-            this.$transition = $('<div class="wcDockerTransition">');
+            this.$container = $('&lt;div class="wcDocker">');
+            this.$transition = $('&lt;div class="wcDockerTransition">');
             this.$loading = null;
 
             this.$outer.append(this.$container);
@@ -180,7 +271,7 @@ define([
                 if (ext > -1) {
                     themeName = themeName.substring(0, ext);
                 }
-                var $link = $('<link id="wcTheme" rel="stylesheet" type="text/css" href="' + this._options.themePath + '/' + themeName + '.css?v=' + cacheBreak + '"/>');
+                var $link = $('&lt;link id="wcTheme" rel="stylesheet" type="text/css" href="' + this._options.themePath + '/' + themeName + '.css?v=' + cacheBreak + '"/>');
                 this._options.theme = themeName;
 
                 var self = this;
@@ -202,7 +293,7 @@ define([
          * @returns {Boolean} - Collapsers are enabled.
          */
         isCollapseEnabled: function () {
-            return (this._canOrientTabs && this._options.allowCollapse);
+            return (this._canOrientTabs &amp;&amp; this._options.allowCollapse);
         },
 
         /**
@@ -211,7 +302,7 @@ define([
          * @version 3.0.0
          * @param {String} name - The name identifier for the new panel type.
          * @param {module:wcDocker~registerOptions} options  An options object for describing the panel type.
-         * @param {Boolean} [isPrivate] - <b>DEPRECATED:</b> Use [options.isPrivate]{@link wcDocker~registerOptions} instead.
+         * @param {Boolean} [isPrivate] - &lt;b>DEPRECATED:&lt;/b> Use [options.isPrivate]{@link wcDocker~registerOptions} instead.
          * @returns {Boolean} - Success or failure. Failure usually indicates the type name already exists.
          */
         registerPanelType: function (name, optionsOrCreateFunc, isPrivate) {
@@ -233,7 +324,7 @@ define([
                 options = null;
             }
 
-            for (var i = 0; i < this._dockPanelTypeList.length; ++i) {
+            for (var i = 0; i &lt; this._dockPanelTypeList.length; ++i) {
                 if (this._dockPanelTypeList[i].name === name) {
                     return false;
                 }
@@ -245,7 +336,7 @@ define([
             });
 
             var $menu = $('menu').find('menu');
-            $menu.append($('<menuitem label="' + name + '">'));
+            $menu.append($('&lt;menuitem label="' + name + '">'));
             return true;
         },
 
@@ -257,7 +348,7 @@ define([
          */
         panelTypes: function (includePrivate) {
             var result = [];
-            for (var i = 0; i < this._dockPanelTypeList.length; ++i) {
+            for (var i = 0; i &lt; this._dockPanelTypeList.length; ++i) {
                 if (includePrivate || !this._dockPanelTypeList[i].options.isPrivate) {
                     result.push(this._dockPanelTypeList[i].name);
                 }
@@ -272,7 +363,7 @@ define([
          * @returns {module:wcDocker~registerOptions} - Registered options of the panel type, or false if the panel was not found.
          */
         panelTypeInfo: function (typeName) {
-            for (var i = 0; i < this._dockPanelTypeList.length; ++i) {
+            for (var i = 0; i &lt; this._dockPanelTypeList.length; ++i) {
                 if (this._dockPanelTypeList[i].name == typeName) {
                     return this._dockPanelTypeList[i].options;
                 }
@@ -281,8 +372,8 @@ define([
         },
 
         /**
-         * Add a new docked panel to the docker instance.<br>
-         * <b>Note:</b> It is best to use {@link wcDocker.COLLAPSED} after you have added your other docked panels, as it may ensure proper placement.
+         * Add a new docked panel to the docker instance.&lt;br>
+         * &lt;b>Note:&lt;/b> It is best to use {@link wcDocker.COLLAPSED} after you have added your other docked panels, as it may ensure proper placement.
          * @function module:wcDocker#addPanel
          * @param {String} typeName - The name identifier of the panel to create.
          * @param {module:wcDocker.DOCK} location - The docking location to place this panel.
@@ -298,8 +389,8 @@ define([
                     this.__addPanelAlone(panel, location, targetPanel, options);
                 }
 
-                if (this._placeholderPanel && panel.moveable() &&
-                    location !== wcDocker.DOCK.FLOAT &&
+                if (this._placeholderPanel &amp;&amp; panel.moveable() &amp;&amp;
+                    location !== wcDocker.DOCK.FLOAT &amp;&amp;
                     location !== wcDocker.DOCK.MODAL) {
                     if (this.removePanel(this._placeholderPanel)) {
                         this._placeholderPanel = null;
@@ -310,7 +401,7 @@ define([
             }
 
             // Find out if we have a persistent version of this panel type first.
-            for (var a = 0; a < this._persistentList.length; ++a) {
+            for (var a = 0; a &lt; this._persistentList.length; ++a) {
                 if (this._persistentList[a]._type === typeName) {
                     var panel = this._persistentList.splice(a, 1)[0];
                     __addPanel.call(this, panel);
@@ -319,13 +410,13 @@ define([
                 }
             }
 
-            for (var i = 0; i < this._dockPanelTypeList.length; ++i) {
+            for (var i = 0; i &lt; this._dockPanelTypeList.length; ++i) {
                 if (this._dockPanelTypeList[i].name === typeName) {
                     var panelType = this._dockPanelTypeList[i];
 
                     var panel = new (this.__getClass('wcPanel'))(this, typeName, panelType.options);
                     panel.__container(this.$transition);
-                    var panelOptions = (panelType.options && panelType.options.options) || {};
+                    var panelOptions = (panelType.options &amp;&amp; panelType.options.options) || {};
                     panel._panelObject = new panelType.options.onCreate(panel, panelOptions);
 
                     __addPanel.call(this, panel);
@@ -352,10 +443,10 @@ define([
             var lastPanel = this.__isLastPanel(panel);
 
             var parentFrame = panel._parent;
-            if (parentFrame && parentFrame.instanceOf('wcFrame')) {
+            if (parentFrame &amp;&amp; parentFrame.instanceOf('wcFrame')) {
                 // Trigger the closing event, if any explicitely returned false, we cancel the close event.
                 var results = panel.__trigger(wcDocker.EVENT.CLOSING);
-                for (var i = 0; i < results.length; ++i) {
+                for (var i = 0; i &lt; results.length; ++i) {
                     if (!results[i]) {
                         return false;
                     }
@@ -371,7 +462,7 @@ define([
                 }
 
                 // If no more panels remain in this frame, remove the frame.
-                if (!parentFrame.removePanel(panel) && !parentFrame.isCollapser()) {
+                if (!parentFrame.removePanel(panel) &amp;&amp; !parentFrame.isCollapser()) {
                     // If this is the last frame, create a dummy panel to take up
                     // the space until another one is created.
                     if (lastPanel) {
@@ -405,7 +496,7 @@ define([
                     }
 
                     var parentSplitter = parentFrame._parent;
-                    if (parentSplitter && parentSplitter.instanceOf('wcSplitter')) {
+                    if (parentSplitter &amp;&amp; parentSplitter.instanceOf('wcSplitter')) {
                         parentSplitter.__removeChild(parentFrame);
 
                         var other;
@@ -431,7 +522,7 @@ define([
                         parentContainer = parentSplitter.__container();
                         parentSplitter.__destroy();
 
-                        if (parent && parent.instanceOf('wcSplitter')) {
+                        if (parent &amp;&amp; parent.instanceOf('wcSplitter')) {
                             parent.__removeChild(parentSplitter);
                             if (!parent.pane(0)) {
                                 parent.pane(0, other);
@@ -478,7 +569,7 @@ define([
             var lastPanel = this.__isLastPanel(panel);
 
             var $elem = panel.$container;
-            if (panel._parent && panel._parent.instanceOf('wcFrame')) {
+            if (panel._parent &amp;&amp; panel._parent.instanceOf('wcFrame')) {
                 $elem = panel._parent.$frame;
             }
             var offset = $elem.offset();
@@ -487,10 +578,10 @@ define([
 
             var parentFrame = panel._parent;
             var floating = false;
-            if (parentFrame && parentFrame.instanceOf('wcFrame')) {
+            if (parentFrame &amp;&amp; parentFrame.instanceOf('wcFrame')) {
                 floating = parentFrame._isFloating;
                 // Remove the panel from the frame.
-                for (var i = 0; i < parentFrame._panelList.length; ++i) {
+                for (var i = 0; i &lt; parentFrame._panelList.length; ++i) {
                     if (parentFrame._panelList[i] === panel) {
                         if (parentFrame.isCollapser()) {
                             parentFrame._curTab = -1;
@@ -508,7 +599,7 @@ define([
                     }
                 }
 
-                if (!parentFrame.isCollapser() && parentFrame._curTab === -1 && parentFrame._panelList.length) {
+                if (!parentFrame.isCollapser() &amp;&amp; parentFrame._curTab === -1 &amp;&amp; parentFrame._panelList.length) {
                     parentFrame._curTab = 0;
                 }
 
@@ -516,7 +607,7 @@ define([
                 parentFrame.collapse();
 
                 // If no more panels remain in this frame, remove the frame.
-                if (!parentFrame.isCollapser() && parentFrame._panelList.length === 0) {
+                if (!parentFrame.isCollapser() &amp;&amp; parentFrame._panelList.length === 0) {
                     // If this is the last frame, create a dummy panel to take up
                     // the space until another one is created.
                     if (lastPanel) {
@@ -532,7 +623,7 @@ define([
                         }
 
                         var parentSplitter = parentFrame._parent;
-                        if (parentSplitter && parentSplitter.instanceOf('wcSplitter')) {
+                        if (parentSplitter &amp;&amp; parentSplitter.instanceOf('wcSplitter')) {
                             parentSplitter.__removeChild(parentFrame);
 
                             var other;
@@ -562,7 +653,7 @@ define([
                             parentContainer = parentSplitter.__container();
                             parentSplitter.__destroy();
 
-                            if (parent && parent.instanceOf('wcSplitter')) {
+                            if (parent &amp;&amp; parent.instanceOf('wcSplitter')) {
                                 parent.__removeChild(parentSplitter);
                                 if (!parent.pane(0)) {
                                     parent.pane(0, other);
@@ -599,7 +690,7 @@ define([
             }
 
             var frame = panel._parent;
-            if (frame && frame.instanceOf('wcFrame')) {
+            if (frame &amp;&amp; frame.instanceOf('wcFrame')) {
                 if (frame._panelList.length === 1) {
                     frame.pos(offset.left + width / 2 + 20, offset.top + height / 2 + 20, true);
                 }
@@ -607,7 +698,7 @@ define([
 
             this.__update(true);
 
-            if (frame && frame.instanceOf('wcFrame')) {
+            if (frame &amp;&amp; frame.instanceOf('wcFrame')) {
                 if (floating !== frame._isFloating) {
                     if (frame._isFloating) {
                         panel.__trigger(wcDocker.EVENT.DETACHED);
@@ -629,9 +720,9 @@ define([
          */
         findPanels: function (typeName) {
             var result = [];
-            for (var i = 0; i < this._frameList.length; ++i) {
+            for (var i = 0; i &lt; this._frameList.length; ++i) {
                 var frame = this._frameList[i];
-                for (var a = 0; a < frame._panelList.length; ++a) {
+                for (var a = 0; a &lt; frame._panelList.length; ++a) {
                     var panel = frame._panelList[a];
                     if (!typeName || panel._type === typeName) {
                         result.push(panel);
@@ -651,10 +742,10 @@ define([
          */
         startLoading: function (label, opacity, textOpacity) {
             if (!this.$loading) {
-                this.$loading = $('<div class="wcLoadingContainer"></div>');
+                this.$loading = $('&lt;div class="wcLoadingContainer">&lt;/div>');
                 this.$outer.append(this.$loading);
 
-                var $background = $('<div class="wcLoadingBackground"></div>');
+                var $background = $('&lt;div class="wcLoadingBackground">&lt;/div>');
                 if (typeof opacity !== 'number') {
                     opacity = 0.4;
                 }
@@ -662,11 +753,11 @@ define([
                 $background.css('opacity', opacity);
                 this.$loading.append($background);
 
-                var $icon = $('<div class="wcLoadingIconContainer"><i class="wcLoadingIcon ' + this._options.loadingClass + '"></i></div>');
+                var $icon = $('&lt;div class="wcLoadingIconContainer">&lt;i class="wcLoadingIcon ' + this._options.loadingClass + '">&lt;/i>&lt;/div>');
                 this.$loading.append($icon);
 
                 if (label) {
-                    var $label = $('<span class="wcLoadingLabel">' + label + '</span>');
+                    var $label = $('&lt;span class="wcLoadingLabel">' + label + '&lt;/span>');
                     this.$loading.append($label);
                 }
 
@@ -740,7 +831,7 @@ define([
                     if (typeof handler === 'undefined') {
                         this._events[eventType] = [];
                     } else {
-                        for (var i = 0; i < this._events[eventType].length; ++i) {
+                        for (var i = 0; i &lt; this._events[eventType].length; ++i) {
                             if (this._events[eventType][i] === handler) {
                                 this._events[eventType].splice(i, 1);
                                 break;
@@ -766,9 +857,9 @@ define([
 
             var results = [];
 
-            for (var i = 0; i < this._frameList.length; ++i) {
+            for (var i = 0; i &lt; this._frameList.length; ++i) {
                 var frame = this._frameList[i];
-                for (var a = 0; a < frame._panelList.length; ++a) {
+                for (var a = 0; a &lt; frame._panelList.length; ++a) {
                     var panel = frame._panelList[a];
                     results = results.concat(panel.__trigger(eventName, data));
                 }
@@ -779,7 +870,7 @@ define([
 
         /**
          * Assigns a basic context menu to a selector element.  The context
-         * Menu is a simple list of options, no nesting or special options.<br><br>
+         * Menu is a simple list of options, no nesting or special options.&lt;br>&lt;br>
          *
          * If you wish to use a more complex context menu, you can use
          * [jQuery.contextMenu]{@link http://medialize.github.io/jQuery-contextMenu/docs.html} directly.
@@ -796,7 +887,7 @@ define([
 
         /**
          * Assigns a basic context menu to a selector element.  The context
-         * Menu is a simple list of options, no nesting or special options.<br><br>
+         * Menu is a simple list of options, no nesting or special options.&lt;br>&lt;br>
          *
          * If you wish to use a more complex context menu, you can use
          * [jQuery.contextMenu]{@link http://medialize.github.io/jQuery-contextMenu/docs.html} directly.
@@ -812,8 +903,8 @@ define([
                 build: function ($trigger, event) {
                     var mouse = self.__mouse(event);
                     var myFrame;
-                    for (var i = 0; i < self._frameList.length; ++i) {
-                        var $frame = $trigger.hasClass('wcFrame') && $trigger || $trigger.parents('.wcFrame');
+                    for (var i = 0; i &lt; self._frameList.length; ++i) {
+                        var $frame = $trigger.hasClass('wcFrame') &amp;&amp; $trigger || $trigger.parents('.wcFrame');
                         if (self._frameList[i].$frame[0] === $frame[0]) {
                             myFrame = self._frameList[i];
                             break;
@@ -826,7 +917,7 @@ define([
                     }
 
                     var windowTypes = {};
-                    for (var i = 0; i < self._dockPanelTypeList.length; ++i) {
+                    for (var i = 0; i &lt; self._dockPanelTypeList.length; ++i) {
                         var type = self._dockPanelTypeList[i];
                         if (!type.options.isPrivate) {
                             if (type.options.limit > 0) {
@@ -864,7 +955,7 @@ define([
                         itemList = itemListOrBuildFunc($trigger, event);
                     }
 
-                    for (var i = 0; i < itemList.length; ++i) {
+                    for (var i = 0; i &lt; itemList.length; ++i) {
                         if ($.isEmptyObject(itemList[i])) {
                             finalItems['sep' + separatorIndex++] = "---------";
                             continue;
@@ -877,7 +968,7 @@ define([
                                     var panel = null;
                                     var $frame = opts.$trigger.parents('.wcFrame').first();
                                     if ($frame.length) {
-                                        for (var a = 0; a < self._frameList.length; ++a) {
+                                        for (var a = 0; a &lt; self._frameList.length; ++a) {
                                             if ($frame[0] === self._frameList[a].$frame[0]) {
                                                 panel = self._frameList[a].panel();
                                             }
@@ -961,7 +1052,7 @@ define([
                                 name: 'Add Panel',
                                 faicon: 'columns',
                                 items: windowTypes,
-                                disabled: !(myFrame.panel()._titleVisible && (!myFrame._isFloating || self._modalList.indexOf(myFrame) === -1)),
+                                disabled: !(myFrame.panel()._titleVisible &amp;&amp; (!myFrame._isFloating || self._modalList.indexOf(myFrame) === -1)),
                                 className: 'wcMenuCreatePanel'
                             };
                         } else {
@@ -1002,12 +1093,12 @@ define([
                                 name: 'Add Panel',
                                 faicon: 'columns',
                                 items: windowTypes,
-                                disabled: !(!myFrame || (!myFrame._isFloating && myFrame.panel().moveable())),
+                                disabled: !(!myFrame || (!myFrame._isFloating &amp;&amp; myFrame.panel().moveable())),
                                 className: 'wcMenuCreatePanel'
                             };
                         }
 
-                        if (myFrame && !myFrame._isFloating && myFrame.panel().moveable()) {
+                        if (myFrame &amp;&amp; !myFrame._isFloating &amp;&amp; myFrame.panel().moveable()) {
                             var rect = myFrame.__rect();
                             self._ghost = new (self.__getClass('wcGhost'))(rect, mouse, self);
                             myFrame.__checkAnchorDrop(mouse, false, self._ghost, true, false, false);
@@ -1053,7 +1144,7 @@ define([
                             } else if (key === wcDocker.DOCK.BOTTOM) {
                                 self.movePanel(myFrame.panel(), wcDocker.DOCK.BOTTOM, wcDocker.COLLAPSED);
                             } else {
-                                if (self._ghost && (myFrame)) {
+                                if (self._ghost &amp;&amp; (myFrame)) {
                                     var anchor = self._ghost.anchor();
                                     var target = myFrame.panel();
                                     if (anchor.item) {
@@ -1072,7 +1163,7 @@ define([
                                     // Grab all those menu items, and propogate a list with them.
                                     var menuItems = {};
                                     var options = opt.$menu.find('.context-menu-item');
-                                    for (var i = 0; i < options.length; ++i) {
+                                    for (var i = 0; i &lt; options.length; ++i) {
                                         var $option = $(options[i]);
                                         var $span = $option.find('span');
                                         if ($span.length) {
@@ -1087,7 +1178,7 @@ define([
                                             var $menu = menuItems[item.name];
 
                                             if ($menu) {
-                                                var $icon = $('<div class="wcMenuIcon">');
+                                                var $icon = $('&lt;div class="wcMenuIcon">');
                                                 $menu.prepend($icon);
 
                                                 if (item.icon) {
@@ -1100,7 +1191,7 @@ define([
 
                                                 // Custom submenu arrow.
                                                 if ($menu.hasClass('context-menu-submenu')) {
-                                                    var $expander = $('<div class="wcMenuSubMenu fa fa-caret-right fa-lg">');
+                                                    var $expander = $('&lt;div class="wcMenuSubMenu fa fa-caret-right fa-lg">');
                                                     $menu.append($expander);
                                                 }
                                             }
@@ -1167,7 +1258,7 @@ define([
             var data = {};
 
             data.floating = [];
-            for (var i = 0; i < this._floatingList.length; ++i) {
+            for (var i = 0; i &lt; this._floatingList.length; ++i) {
                 data.floating.push(this._floatingList[i].__save());
             }
 
@@ -1207,7 +1298,7 @@ define([
             this._root = this.__create(data.root, this, this.$container);
             this._root.__restore(data.root, this);
 
-            for (var i = 0; i < data.floating.length; ++i) {
+            for (var i = 0; i &lt; data.floating.length; ++i) {
                 var panel = this.__create(data.floating[i], this, this.$container);
                 if(panel) {
                     panel.__restore(data.floating[i], this);
@@ -1216,7 +1307,7 @@ define([
 
             this.__forceUpdate(false);
 
-            if (!$.isEmptyObject(data.collapsers) && this.isCollapseEnabled()) {
+            if (!$.isEmptyObject(data.collapsers) &amp;&amp; this.isCollapseEnabled()) {
                 this.__initCollapsers();
 
                 this._collapser[wcDocker.DOCK.LEFT].__restore(data.collapsers.left, this);
@@ -1240,11 +1331,11 @@ define([
             // Make sure we notify all panels that they are closing.
             this.trigger(wcDocker.EVENT.CLOSED);
 
-            for (var i = 0; i < this._splitterList.length; ++i) {
+            for (var i = 0; i &lt; this._splitterList.length; ++i) {
                 this._splitterList[i].__destroy();
             }
 
-            for (var i = 0; i < this._frameList.length; ++i) {
+            for (var i = 0; i &lt; this._frameList.length; ++i) {
                 this._frameList[i].__destroy();
             }
 
@@ -1305,7 +1396,7 @@ define([
                         self._root.__update(self._dirtyDontMove);
                     }
 
-                    for (var i = 0; i < self._floatingList.length; ++i) {
+                    for (var i = 0; i &lt; self._floatingList.length; ++i) {
                         self._floatingList[i].__update();
                     }
                 }
@@ -1385,12 +1476,12 @@ define([
                 }
                 $('body').removeClass('wcDisableSelection');
                 if (self._draggingFrame) {
-                    for (var i = 0; i < self._frameList.length; ++i) {
+                    for (var i = 0; i &lt; self._frameList.length; ++i) {
                         self._frameList[i].__shadow(false);
                     }
                 }
 
-                if (self._ghost && (self._draggingFrame || self._creatingPanel)) {
+                if (self._ghost &amp;&amp; (self._draggingFrame || self._creatingPanel)) {
                     var anchor = self._ghost.anchor();
 
                     if (self._draggingFrame) {
@@ -1405,14 +1496,14 @@ define([
                             if (!self._draggingFrameTab) {
                                 var count = self._draggingFrame._panelList.length;
                                 if (count > 1 || self._draggingFrame.panel() !== self._placeholderPanel) {
-                                    for (var i = 0; i < count; ++i) {
+                                    for (var i = 0; i &lt; count; ++i) {
                                         self.movePanel(self._draggingFrame.panel(), wcDocker.DOCK.STACKED, panel, {tabOrientation: self._draggingFrame._tabOrientation});
                                     }
                                 }
                             }
 
                             var frame = panel._parent;
-                            if (frame && frame.instanceOf('wcFrame')) {
+                            if (frame &amp;&amp; frame.instanceOf('wcFrame')) {
                                 frame.pos(mouse.x, mouse.y + self._ghost.__rect().h / 2 - 10, true);
 
                                 frame._size.x = self._ghost.__rect().w;
@@ -1421,9 +1512,9 @@ define([
 
                             frame.__update();
                             self.__focus(frame);
-                        } else if (!anchor.self && anchor.loc !== undefined) {
+                        } else if (!anchor.self &amp;&amp; anchor.loc !== undefined) {
                             // Changing tab location on the same frame.
-                            if (anchor.tab && anchor.item._parent._parent == self._draggingFrame) {
+                            if (anchor.tab &amp;&amp; anchor.item._parent._parent == self._draggingFrame) {
                                 self._draggingFrame.tabOrientation(anchor.tab);
                             } else {
                                 var index = 0;
@@ -1443,7 +1534,7 @@ define([
                                     if (self._draggingFrame._panelList.length === 1) {
                                         return;
                                     }
-                                    for (var i = 0; i < self._draggingFrame._panelList.length; ++i) {
+                                    for (var i = 0; i &lt; self._draggingFrame._panelList.length; ++i) {
                                         if (panel !== self._draggingFrame._panelList[i]) {
                                             panel = self._draggingFrame._panelList[i];
                                             index--;
@@ -1467,19 +1558,19 @@ define([
                                     }
                                     var count = self._draggingFrame._panelList.length;
                                     if (count > 1 || self._draggingFrame.panel() !== self._placeholderPanel) {
-                                        for (var i = 0; i < count; ++i) {
+                                        for (var i = 0; i &lt; count; ++i) {
                                             self.movePanel(self._draggingFrame.panel(), wcDocker.DOCK.STACKED, panel, rect);
                                         }
                                     }
                                 } else {
                                     var frame = panel._parent;
-                                    if (frame && frame.instanceOf('wcFrame')) {
+                                    if (frame &amp;&amp; frame.instanceOf('wcFrame')) {
                                         index = index + frame._panelList.length;
                                     }
                                 }
 
                                 var frame = panel._parent;
-                                if (frame && frame.instanceOf('wcFrame')) {
+                                if (frame &amp;&amp; frame.instanceOf('wcFrame')) {
                                     frame.panel(index);
                                 }
                                 self.__focus(frame);
@@ -1531,12 +1622,12 @@ define([
                 lastMouseEvent = event;
                 var mouse = self.__mouse(event);
                 if (mouse.which === 3 || (
-                    !self._draggingSplitter && !self._draggingFrameSizer && !self._draggingCustomTabFrame && !self._ghost && !self._draggingFrame && !self._draggingFrameTab)) {
+                    !self._draggingSplitter &amp;&amp; !self._draggingFrameSizer &amp;&amp; !self._draggingCustomTabFrame &amp;&amp; !self._ghost &amp;&amp; !self._draggingFrame &amp;&amp; !self._draggingFrameTab)) {
                     return true;
                 }
 
                 var t = new Date().getTime();
-                if (t - lastMouseMove < self._options.responseRate) {
+                if (t - lastMouseMove &lt; self._options.responseRate) {
                     if (!moveTimeout) {
                         moveTimeout = setTimeout(function () {
                             lastMouseMove = 0;
@@ -1566,7 +1657,7 @@ define([
                 } else if (self._draggingCustomTabFrame) {
                     if (self._draggingCustomTabFrame.moveable()) {
                         var $hoverTab = $(event.target).hasClass('wcPanelTab') ? $(event.target) : $(event.target).parents('.wcPanelTab');
-                        if (self._draggingFrameTab && $hoverTab && $hoverTab.length && self._draggingFrameTab !== event.target) {
+                        if (self._draggingFrameTab &amp;&amp; $hoverTab &amp;&amp; $hoverTab.length &amp;&amp; self._draggingFrameTab !== event.target) {
                             self._draggingFrameTab = self._draggingCustomTabFrame.moveTab(parseInt($(self._draggingFrameTab).attr('id')), parseInt($hoverTab.attr('id')));
                         }
                     }
@@ -1581,15 +1672,15 @@ define([
                         var found = false;
 
                         // Check anchoring with self.
-                        if (!self._draggingFrame.__checkAnchorDrop(mouse, true, self._ghost, self._draggingFrame._panelList.length > 1 && self._draggingFrameTab, self._draggingFrameTopper, !self.__isLastFrame(self._draggingFrame))) {
+                        if (!self._draggingFrame.__checkAnchorDrop(mouse, true, self._ghost, self._draggingFrame._panelList.length > 1 &amp;&amp; self._draggingFrameTab, self._draggingFrameTopper, !self.__isLastFrame(self._draggingFrame))) {
                             // Introduce a delay before a panel begins movement to a new docking position.
-                            if (new Date().getTime() - lastLButtonDown < self._options.moveStartDelay) {
+                            if (new Date().getTime() - lastLButtonDown &lt; self._options.moveStartDelay) {
                                 return;
                             }
                             self._draggingFrame.__shadow(true);
                             self.__focus();
                             if (!forceFloat) {
-                                for (var i = 0; i < self._frameList.length; ++i) {
+                                for (var i = 0; i &lt; self._frameList.length; ++i) {
                                     if (self._frameList[i] !== self._draggingFrame) {
                                         if (self._frameList[i].__checkAnchorDrop(mouse, false, self._ghost, true, self._draggingFrameTopper, !self.__isLastFrame(self._draggingFrame))) {
                                             self._draggingFrame.__shadow(true);
@@ -1606,14 +1697,14 @@ define([
                             self._draggingFrame.__shadow(false);
                             var $target = $(document.elementFromPoint(mouse.x, mouse.y));
                             var $hoverTab = $target.hasClass('wcPanelTab') ? $target : $target.parents('.wcPanelTab');
-                            if (self._draggingFrameTab && $hoverTab.length && self._draggingFrameTab !== $hoverTab[0]) {
+                            if (self._draggingFrameTab &amp;&amp; $hoverTab.length &amp;&amp; self._draggingFrameTab !== $hoverTab[0]) {
                                 self._draggingFrameTab = self._draggingFrame.__tabMove(parseInt($(self._draggingFrameTab).attr('id')), parseInt($hoverTab.attr('id')));
                             }
                         }
                     } else if (self._creatingPanel) {
                         self._ghost.update(mouse, !self._creatingPanelNoFloating);
                     }
-                } else if (self._draggingFrame && !self._draggingFrameTab) {
+                } else if (self._draggingFrame &amp;&amp; !self._draggingFrameTab) {
                     self._draggingFrame.__move(mouse);
                     self._draggingFrame.__update();
                 }
@@ -1655,7 +1746,7 @@ define([
 
             // on mousedown for .wcModalBlocker
             function __onMouseDownModalBlocker(event) {
-                // for (var i = 0; i < self._modalList.length; ++i) {
+                // for (var i = 0; i &lt; self._modalList.length; ++i) {
                 //   self._modalList[i].__focus(true);
                 // }
                 if (self._modalList.length) {
@@ -1677,7 +1768,7 @@ define([
             // on click for .wcCustomTab .wcFrameButton
             function __onClickCustomTabButton(event) {
                 $('body').removeClass('wcDisableSelection');
-                for (var i = 0; i < self._tabList.length; ++i) {
+                for (var i = 0; i &lt; self._tabList.length; ++i) {
                     var customTab = self._tabList[i];
                     if (customTab.$close[0] === this) {
                         var tabIndex = customTab.tab();
@@ -1688,7 +1779,7 @@ define([
 
                     if (customTab.$tabLeft[0] === this) {
                         customTab._tabScrollPos -= customTab.$tabBar.width() / 2;
-                        if (customTab._tabScrollPos < 0) {
+                        if (customTab._tabScrollPos &lt; 0) {
                             customTab._tabScrollPos = 0;
                         }
                         customTab.__updateTabs();
@@ -1707,7 +1798,7 @@ define([
             // on click for .wcFrameButtonBar > .wcFrameButton
             function __onClickPanelButton() {
                 $('body').removeClass('wcDisableSelection');
-                for (var i = 0; i < self._frameList.length; ++i) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
                     var frame = self._frameList[i];
                     if (frame.$close[0] === this) {
                         self.__closePanel(frame.panel());
@@ -1751,7 +1842,7 @@ define([
                     }
                     if (frame.$tabLeft[0] === this) {
                         frame._tabScrollPos -= frame.$tabBar.width() / 2;
-                        if (frame._tabScrollPos < 0) {
+                        if (frame._tabScrollPos &lt; 0) {
                             frame._tabScrollPos = 0;
                         }
                         frame.__updateTabs();
@@ -1763,7 +1854,7 @@ define([
                         return;
                     }
 
-                    for (var a = 0; a < frame._buttonList.length; ++a) {
+                    for (var a = 0; a &lt; frame._buttonList.length; ++a) {
                         if (frame._buttonList[a][0] === this) {
                             var $button = frame._buttonList[a];
                             var result = {
@@ -1799,7 +1890,7 @@ define([
 
                 var index = parseInt($(this).attr('id'));
 
-                for (var i = 0; i < self._frameList.length; ++i) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
                     var frame = self._frameList[i];
                     if (frame.$tabBar[0] === $(this).parents('.wcFrameTitleBar')[0]) {
                         var panel = frame._panelList[index];
@@ -1820,7 +1911,7 @@ define([
                 }
 
                 $('body').addClass('wcDisableSelection');
-                for (var i = 0; i < self._splitterList.length; ++i) {
+                for (var i = 0; i &lt; self._splitterList.length; ++i) {
                     if (self._splitterList[i].$bar[0] === this) {
                         self._draggingSplitter = self._splitterList[i];
                         self._draggingSplitter.$pane[0].addClass('wcResizing');
@@ -1846,7 +1937,7 @@ define([
                 lastLButtonDown = new Date().getTime();
 
                 $('body').addClass('wcDisableSelection');
-                for (var i = 0; i < self._frameList.length; ++i) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
                     if (self._frameList[i].$titleBar[0] == this ||
                         self._frameList[i].$tabBar[0] == this) {
                         self._draggingFrame = self._frameList[i];
@@ -1854,7 +1945,7 @@ define([
                         self._draggingFrame.__anchorMove(mouse);
 
                         var $panelTab = $(event.target).hasClass('wcPanelTab') ? $(event.target) : $(event.target).parents('.wcPanelTab');
-                        if ($panelTab && $panelTab.length) {
+                        if ($panelTab &amp;&amp; $panelTab.length) {
                             var index = parseInt($panelTab.attr('id'));
                             self._draggingFrame.panel(index, true);
                             self._draggingFrameTab = $panelTab[0];
@@ -1868,17 +1959,17 @@ define([
                                 shouldMove = false;
                             }
                         } else {
-                            if (self._draggingFrame._isFloating && mouse.which === 1) {
+                            if (self._draggingFrame._isFloating &amp;&amp; mouse.which === 1) {
                                 shouldMove = false;
                             }
                         }
 
-                        // if (((!$panelTab.hasClass('wcNotMoveable') && self._draggingFrameTab) ||
-                        //     !(self._draggingFrame.$titleBar.hasClass('wcNotMoveable') || self._draggingFrame.$tabBar.hasClass('wcNotMoveable'))) &&
+                        // if (((!$panelTab.hasClass('wcNotMoveable') &amp;&amp; self._draggingFrameTab) ||
+                        //     !(self._draggingFrame.$titleBar.hasClass('wcNotMoveable') || self._draggingFrame.$tabBar.hasClass('wcNotMoveable'))) &amp;&amp;
                         //     (!self._draggingFrame._isFloating || mouse.which !== 1 || self._draggingFrameTab)) {
                         if (shouldMove) {
                             // Special case to allow users to drag out only a single collapsed tab even by dragging the title bar (which normally would drag out the entire frame).
-                            if (!self._draggingFrameTab && self._draggingFrame.isCollapser()) {
+                            if (!self._draggingFrameTab &amp;&amp; self._draggingFrame.isCollapser()) {
                                 self._draggingFrameTab = self._draggingFrame.panel();
                             }
                             self._draggingFrameTopper = $(event.target).parents('.wcFrameTopper').length > 0;
@@ -1890,12 +1981,12 @@ define([
                         break;
                     }
                 }
-                for (var i = 0; i < self._tabList.length; ++i) {
+                for (var i = 0; i &lt; self._tabList.length; ++i) {
                     if (self._tabList[i].$tabBar[0] == this) {
                         self._draggingCustomTabFrame = self._tabList[i];
 
                         var $panelTab = $(event.target).hasClass('wcPanelTab') ? $(event.target) : $(event.target).parents('.wcPanelTab');
-                        if ($panelTab && $panelTab.length) {
+                        if ($panelTab &amp;&amp; $panelTab.length) {
                             var index = parseInt($panelTab.attr('id'));
                             self._draggingCustomTabFrame.tab(index, true);
                             self._draggingFrameTab = $panelTab[0];
@@ -1915,8 +2006,8 @@ define([
                 if (mouse.which === 3) {
                     return true;
                 }
-                for (var i = 0; i < self._frameList.length; ++i) {
-                    if (self._frameList[i].panel() && self._frameList[i].panel().layout().scene()[0] == this) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
+                    if (self._frameList[i].panel() &amp;&amp; self._frameList[i].panel().layout().scene()[0] == this) {
                         setTimeout(function () {
                             self.__focus(self._frameList[i]);
                         }, 10);
@@ -1933,7 +2024,7 @@ define([
                     return true;
                 }
                 $('body').addClass('wcDisableSelection');
-                for (var i = 0; i < self._frameList.length; ++i) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
                     if (self._frameList[i]._isFloating) {
                         if (self._frameList[i].$top[0] == this) {
                             self._draggingFrame = self._frameList[i];
@@ -2012,11 +2103,11 @@ define([
 
                 var index = parseInt($(this).attr('id'));
 
-                for (var i = 0; i < self._frameList.length; ++i) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
                     var frame = self._frameList[i];
                     if (frame.$tabBar[0] === $(this).parents('.wcFrameTitleBar')[0]) {
                         var panel = frame._panelList[index];
-                        if (panel && panel.closeable()) {
+                        if (panel &amp;&amp; panel.closeable()) {
                             self._removingPanel = frame._panelList[index];
                         }
                         return true;
@@ -2051,12 +2142,12 @@ define([
 
         // Test for load completion.
         __testLoadFinished: function () {
-            for (var i = 0; i < this._frameList.length; ++i) {
+            for (var i = 0; i &lt; this._frameList.length; ++i) {
                 var frame = this._frameList[i];
-                for (var a = 0; a < frame._panelList.length; ++a) {
+                for (var a = 0; a &lt; frame._panelList.length; ++a) {
                     var panel = frame._panelList[a];
                     // Skip if any panels are not initialized yet.
-                    if (panel._isVisible && !panel._initialized) {
+                    if (panel._isVisible &amp;&amp; !panel._initialized) {
                         return;
                     }
 
@@ -2074,9 +2165,9 @@ define([
 
                 // Now unregister all loaded events so they do not fire again.
                 self.off(wcDocker.EVENT.LOADED);
-                for (var i = 0; i < self._frameList.length; ++i) {
+                for (var i = 0; i &lt; self._frameList.length; ++i) {
                     var frame = self._frameList[i];
-                    for (var a = 0; a < frame._panelList.length; ++a) {
+                    for (var a = 0; a &lt; frame._panelList.length; ++a) {
                         var panel = frame._panelList[a];
                         panel.off(wcDocker.EVENT.LOADED);
                     }
@@ -2100,7 +2191,7 @@ define([
                         fNOP = function () {
                         },
                         fBound = function () {
-                            return fToBind.apply(this instanceof fNOP && oThis
+                            return fToBind.apply(this instanceof fNOP &amp;&amp; oThis
                                     ? this
                                     : oThis,
                                 aArgs.concat(Array.prototype.slice.call(arguments)));
@@ -2118,14 +2209,14 @@ define([
                     var len = this.length >>> 0;
 
                     var from = Number(arguments[1]) || 0;
-                    from = (from < 0)
+                    from = (from &lt; 0)
                         ? Math.ceil(from)
                         : Math.floor(from);
-                    if (from < 0)
+                    if (from &lt; 0)
                         from += len;
 
-                    for (; from < len; from++) {
-                        if (from in this &&
+                    for (; from &lt; len; from++) {
+                        if (from in this &amp;&amp;
                             this[from] === elt)
                             return from;
                     }
@@ -2139,20 +2230,20 @@ define([
                 var div = document.createElement('div');
                 var all = div.getElementsByTagName('i');
                 while (
-                    div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+                    div.innerHTML = '&lt;!--[if gt IE ' + (++v) + ']>&lt;i>&lt;/i>&lt;![endif]-->',
                         all[0]
                     );
                 return v > 4 ? v : undefined;
             }());
 
-            if (ie < 9) {
+            if (ie &lt; 9) {
                 this._canOrientTabs = false;
             } else {
                 function getSupportedTransform() {
                     var prefixes = 'transform WebkitTransform MozTransform OTransform msTransform'.split(' ');
                     var div = document.createElement('div');
-                    for (var i = 0; i < prefixes.length; i++) {
-                        if (div && div.style[prefixes[i]] !== undefined) {
+                    for (var i = 0; i &lt; prefixes.length; i++) {
+                        if (div &amp;&amp; div.style[prefixes[i]] !== undefined) {
                             return true;
                         }
                     }
@@ -2172,7 +2263,7 @@ define([
          */
         __findInner: function () {
             function isPaneStatic(pane) {
-                return !!(pane && (pane.instanceOf('wcFrame') && pane.panel() && !pane.panel().moveable()) || (pane.instanceOf('wcCollapser')));
+                return !!(pane &amp;&amp; (pane.instanceOf('wcFrame') &amp;&amp; pane.panel() &amp;&amp; !pane.panel().moveable()) || (pane.instanceOf('wcCollapser')));
             }
 
             var parent = this._root;
@@ -2180,11 +2271,11 @@ define([
                 if (parent.instanceOf('wcSplitter')) {
                     var pane0 = isPaneStatic(parent._pane[0]);
                     var pane1 = isPaneStatic(parent._pane[1]);
-                    if (pane0 && !pane1) {
+                    if (pane0 &amp;&amp; !pane1) {
                         parent = parent._pane[1];
-                    } else if (pane1 && !pane0) {
+                    } else if (pane1 &amp;&amp; !pane0) {
                         parent = parent._pane[0];
-                    } else if (!pane0 && !pane1) {
+                    } else if (!pane0 &amp;&amp; !pane1) {
                         break;
                     }
                 } else {
@@ -2196,8 +2287,8 @@ define([
         },
 
         /*
-         * Sets up the collapsers for the panel.<br>
-         * <b>Note: </b> This should be called AFTER you have initialized your panel layout, but BEFORE you add
+         * Sets up the collapsers for the panel.&lt;br>
+         * &lt;b>Note: &lt;/b> This should be called AFTER you have initialized your panel layout, but BEFORE you add
          * any static panels that you do not wish to be overlapped by the collapsers (such as file menu panels).
          */
         __initCollapsers: function () {
@@ -2237,7 +2328,7 @@ define([
                 this._root.__update(opt_dontMove);
             }
 
-            for (var i = 0; i < this._floatingList.length; ++i) {
+            for (var i = 0; i &lt; this._floatingList.length; ++i) {
                 this._floatingList[i].__update();
             }
         },
@@ -2258,7 +2349,7 @@ define([
             var index = 0;
             var panel;
 
-            for (var i = 0; i < this._floatingList.length; ++i) {
+            for (var i = 0; i &lt; this._floatingList.length; ++i) {
                 panel = this._floatingList[i];
                 if (panel) {
                     var layer = start + (i * step);
@@ -2270,7 +2361,7 @@ define([
 
         // Retrieve mouse or touch position.
         __mouse: function (event) {
-            if (event.originalEvent && (event.originalEvent.touches || event.originalEvent.changedTouches)) {
+            if (event.originalEvent &amp;&amp; (event.originalEvent.touches || event.originalEvent.changedTouches)) {
                 var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
                 return {
                     x: touch.clientX,
@@ -2300,7 +2391,7 @@ define([
 
         // On window resize event ended.
         __resizeEnd: function () {
-            if (new Date() - this._resizeData.time < this._resizeData.delta) {
+            if (new Date() - this._resizeData.time &lt; this._resizeData.delta) {
                 setTimeout(this.__resizeEnd.bind(this), this._resizeData.delta);
             } else {
                 this._resizeData.timeout = false;
@@ -2323,7 +2414,7 @@ define([
                 this._focusFrame = null;
 
                 oldFocusFrame.__trigger(wcDocker.EVENT.LOST_FOCUS);
-                if (oldFocusFrame.isCollapser() && differentFrames) {
+                if (oldFocusFrame.isCollapser() &amp;&amp; differentFrames) {
                     oldFocusFrame.collapse();
                     oldFocusFrame.panel(-1);
                 }
@@ -2359,7 +2450,7 @@ define([
 
             if (this._events[eventName]) {
                 var events = this._events[eventName].slice(0);
-                for (var i = 0; i < events.length; ++i) {
+                for (var i = 0; i &lt; events.length; ++i) {
                     results.push(events[i].call(this, data));
                 }
             }
@@ -2375,14 +2466,14 @@ define([
         //    true      The panel is the last.
         //    false     The panel is not the last.
         __isLastPanel: function (panel) {
-            for (var i = 0; i < this._frameList.length; ++i) {
+            for (var i = 0; i &lt; this._frameList.length; ++i) {
                 var testFrame = this._frameList[i];
                 if (testFrame._isFloating || testFrame.isCollapser()) {
                     continue;
                 }
-                for (var a = 0; a < testFrame._panelList.length; ++a) {
+                for (var a = 0; a &lt; testFrame._panelList.length; ++a) {
                     var testPanel = testFrame._panelList[a];
-                    if (testPanel !== panel && testPanel.moveable()) {
+                    if (testPanel !== panel &amp;&amp; testPanel.moveable()) {
                         return false;
                     }
                 }
@@ -2399,12 +2490,12 @@ define([
         //    true      The panel is the last.
         //    false     The panel is not the last.
         __isLastFrame: function (frame) {
-            for (var i = 0; i < this._frameList.length; ++i) {
+            for (var i = 0; i &lt; this._frameList.length; ++i) {
                 var testFrame = this._frameList[i];
                 if (testFrame._isFloating || testFrame === frame || testFrame.isCollapser()) {
                     continue;
                 }
-                for (var a = 0; a < testFrame._panelList.length; ++a) {
+                for (var a = 0; a &lt; testFrame._panelList.length; ++a) {
                     var testPanel = testFrame._panelList[a];
                     if (testPanel.moveable()) {
                         return false;
@@ -2446,11 +2537,11 @@ define([
                         }
                         return this._placeholderPanel;
                     } else {
-                        for (var i = 0; i < this._dockPanelTypeList.length; ++i) {
+                        for (var i = 0; i &lt; this._dockPanelTypeList.length; ++i) {
                             if (this._dockPanelTypeList[i].name === data.panelType) {
                                 var panel = new (this.__getClass('wcPanel'))(parent, data.panelType, this._dockPanelTypeList[i].options);
                                 panel.__container(this.$transition);
-                                var options = (this._dockPanelTypeList[i].options && this._dockPanelTypeList[i].options.options) || {};
+                                var options = (this._dockPanelTypeList[i].options &amp;&amp; this._dockPanelTypeList[i].options.options) || {};
                                 panel._panelObject = new this._dockPanelTypeList[i].options.onCreate(panel, options);
                                 panel.__container($container);
                                 break;
@@ -2472,12 +2563,12 @@ define([
         //                  new panel will split the center window.
         __addPanelGrouped: function (panel, targetPanel, options) {
             var frame = targetPanel;
-            if (frame && frame.instanceOf('wcPanel')) {
+            if (frame &amp;&amp; frame.instanceOf('wcPanel')) {
                 frame = targetPanel._parent;
             }
 
-            if (frame && frame.instanceOf('wcFrame')) {
-                if (options && options.tabOrientation) {
+            if (frame &amp;&amp; frame.instanceOf('wcFrame')) {
+                if (options &amp;&amp; options.tabOrientation) {
                     frame.tabOrientation(options.tabOrientation);
                 }
 
@@ -2497,7 +2588,7 @@ define([
         //    targetPanel   An optional panel to 'split', if not supplied the
         //                  new panel will split the center window.
         __addPanelAlone: function (panel, location, targetPanel, options) {
-            if (targetPanel && targetPanel._shift) {
+            if (targetPanel &amp;&amp; targetPanel._shift) {
                 var target = targetPanel;
                 targetPanel = targetPanel._shift;
                 target._shift = undefined;
@@ -2545,7 +2636,7 @@ define([
             // Floating windows need no placement.
             if (location === wcDocker.DOCK.FLOAT || location === wcDocker.DOCK.MODAL) {
                 var frame = new (this.__getClass('wcFrame'))(this.$container, this, true);
-                if (options && options.tabOrientation) {
+                if (options &amp;&amp; options.tabOrientation) {
                     frame.tabOrientation(options.tabOrientation);
                 }
                 this._frameList.push(frame);
@@ -2555,7 +2646,7 @@ define([
                 frame.pos(panel._pos.x, panel._pos.y, false);
 
                 if (location === wcDocker.DOCK.MODAL) {
-                    frame.$modalBlocker = $('<div class="wcModalBlocker"></div>');
+                    frame.$modalBlocker = $('&lt;div class="wcModalBlocker">&lt;/div>');
                     frame.$frame.prepend(frame.$modalBlocker);
 
                     panel.moveable(false);
@@ -2587,12 +2678,12 @@ define([
 
                 var splitterChild = targetPanel;
 
-                while (parentSplitter && !(parentSplitter.instanceOf('wcSplitter') || parentSplitter.instanceOf('wcDocker'))) {
+                while (parentSplitter &amp;&amp; !(parentSplitter.instanceOf('wcSplitter') || parentSplitter.instanceOf('wcDocker'))) {
                     splitterChild = parentSplitter;
                     parentSplitter = parentSplitter._parent;
                 }
 
-                if (parentSplitter && parentSplitter.instanceOf('wcSplitter')) {
+                if (parentSplitter &amp;&amp; parentSplitter.instanceOf('wcSplitter')) {
                     var splitter;
                     var left = parentSplitter.pane(0);
                     var right = parentSplitter.pane(1);
@@ -2601,12 +2692,12 @@ define([
                         y: -1
                     };
                     if (left === splitterChild) {
-                        splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM && location !== wcDocker.DOCK.TOP);
+                        splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM &amp;&amp; location !== wcDocker.DOCK.TOP);
                         size.x = parentSplitter.$pane[0].width();
                         size.y = parentSplitter.$pane[0].height();
                         parentSplitter.pane(0, splitter);
                     } else {
-                        splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM && location !== wcDocker.DOCK.TOP);
+                        splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM &amp;&amp; location !== wcDocker.DOCK.TOP);
                         size.x = parentSplitter.$pane[1].width();
                         size.y = parentSplitter.$pane[1].height();
                         parentSplitter.pane(1, splitter);
@@ -2624,10 +2715,10 @@ define([
                         }
 
                         if (options) {
-                            if (options.w < 0) {
+                            if (options.w &lt; 0) {
                                 options.w = size.x / 2;
                             }
-                            if (options.h < 0) {
+                            if (options.h &lt; 0) {
                                 options.h = size.y / 2;
                             }
 
@@ -2674,7 +2765,7 @@ define([
                 parent._root = frame;
                 frame.__container($container);
             } else {
-                var splitter = new (this.__getClass('wcSplitter'))($container, parent, location !== wcDocker.DOCK.BOTTOM && location !== wcDocker.DOCK.TOP);
+                var splitter = new (this.__getClass('wcSplitter'))($container, parent, location !== wcDocker.DOCK.BOTTOM &amp;&amp; location !== wcDocker.DOCK.TOP);
                 if (splitter) {
                     frame._parent = splitter;
                     splitter.scrollable(0, false, false);
@@ -2687,10 +2778,10 @@ define([
                     if (!options) {
                         splitter.__findBestPos();
                     } else {
-                        if (options.w < 0) {
+                        if (options.w &lt; 0) {
                             options.w = size.x / 2;
                         }
-                        if (options.h < 0) {
+                        if (options.h &lt; 0) {
                             options.h = size.y / 2;
                         }
 
@@ -2732,19 +2823,19 @@ define([
                 var splitterChild = parent;
                 var _d = dcl;
 
-                while (parentSplitter && !(parentSplitter.instanceOf('wcSplitter') || parentSplitter.instanceOf('wcDocker'))){
+                while (parentSplitter &amp;&amp; !(parentSplitter.instanceOf('wcSplitter') || parentSplitter.instanceOf('wcDocker'))){
                     splitterChild = parentSplitter;
                     parentSplitter = parentSplitter._parent;
                 }
 
-                var splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM && location !== wcDocker.DOCK.TOP);
+                var splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM &amp;&amp; location !== wcDocker.DOCK.TOP);
 
-                if (parentSplitter && parentSplitter.instanceOf('wcDocker')){
+                if (parentSplitter &amp;&amp; parentSplitter.instanceOf('wcDocker')){
                     this._root = splitter;
                     splitter.__container(this.$container);
                 }
 
-                if (parentSplitter && parentSplitter.instanceOf('wcSplitter')) {
+                if (parentSplitter &amp;&amp; parentSplitter.instanceOf('wcSplitter')) {
                     var left = parentSplitter.left();
                     var right = parentSplitter.right();
                     var size = {
@@ -2756,7 +2847,7 @@ define([
                         size.y = parentSplitter.$pane[0].height();
                         parentSplitter.pane(0, splitter);
                     } else {
-                        splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM && location !== wcDocker.DOCK.TOP);
+                        splitter = new (this.__getClass('wcSplitter'))(this.$transition, parentSplitter, location !== wcDocker.DOCK.BOTTOM &amp;&amp; location !== wcDocker.DOCK.TOP);
                         size.x = parentSplitter.$pane[1].width();
                         size.y = parentSplitter.$pane[1].height();
                         parentSplitter.pane(1, splitter);
@@ -2818,7 +2909,7 @@ define([
             // If the panel is persistent, instead of destroying it, add it to a persistent list instead.
             var dontDestroy = false;
             var panelOptions = this.panelTypeInfo(panel._type);
-            if (panelOptions && panelOptions.isPersistent) {
+            if (panelOptions &amp;&amp; panelOptions.isPersistent) {
                 dontDestroy = true;
                 this._persistentList.push(panel);
             }
@@ -2830,7 +2921,7 @@ define([
         // Called by panels on update, resize or any other change
         __layoutChanged: function (eventType) {
             // Eat up simultaneous layout change to trigger one
-            if(wcDocker.LAYOUT_CHANGE_EVENTS.indexOf(eventType) < 0
+            if(wcDocker.LAYOUT_CHANGE_EVENTS.indexOf(eventType) &lt; 0
                 || this._layoutChangeEvActive) {
                 return;
             }
@@ -2877,3 +2968,154 @@ define([
 
     return Module;
 });
+</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+	<span class="copyright">
+	2014-2016 Jeff Houde (<a href='mailto:lochemage@webcabin.org'>lochemage@webcabin.org</a>)
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
+	
+		on 2019-06-07
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+
+
+
+<!-- Piwik Analytics -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  
+  
+  
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://analytics.webcabin.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 6]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="https://analytics.webcabin.org/piwik.php?idsite=6" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

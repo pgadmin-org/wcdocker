@@ -243,10 +243,12 @@ html, body {
   display: none !important;
 }
 
+.wcLockFull .wcSplitterBarV,
 .wcSplitterBarV.wcSplitterBarStatic {
   cursor: default !important;
 }
 
+.wcLockFull .wcSplitterBarH,
 .wcSplitterBarH.wcSplitterBarStatic {
   cursor: default !important;
 }
@@ -280,6 +282,8 @@ html, body {
   top: 0px;
 }
 
+.wcLockPreventDocking .wcPanelTab,
+.wcLockFull .wcPanelTab,
 .wcPanelTab.wcNotMoveable {
   cursor: default;
 }

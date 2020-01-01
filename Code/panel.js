@@ -263,7 +263,6 @@ define([
          * @param {String} [ariaLabel]        - A aria-label to apply to the wcFrameButton
          */
         addButton: function (name, className, text, tip, isTogglable, toggleClassName, parentClass, enabled, ariaLabel) {
-            console.log(ariaLabel, 'ariaLabel', name)
             this._buttonList.push({
                 name: name,
                 className: className,

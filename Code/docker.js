@@ -1365,7 +1365,10 @@ define([
             // Clicking on a custom tab button.
             $('body').on('click', '.wcCustomTab .wcFrameButton', __onClickCustomTabButton);
             // Clicking on a panel frame button.
-            $('body').on('click', '.wcFrameButtonBar > .wcFrameButton', __onClickPanelButton);
+            $('body').on('click', '.wcFrameButtonBar > .wcFrameButton', __onClickPanelButton)
+
+            // Space/Enter keyup on a panel frame button.
+            $('body').on('keyup', '.wcFrameButtonBar > .wcFrameButton', __onKeyUpPanelButton)
 
             // Escape key to cancel drag operations.
             $('body').on('keyup', __onKeyup);
@@ -1700,6 +1703,37 @@ define([
                         customTab.__updateTabs();
                         event.stopPropagation();
                         return;
+                    }
+                }
+            }
+
+            // on keyup for .wcFrameButtonBar > .wcFrameButton
+            function __onKeyUpPanelButton(e) {
+                if(e.which === 13 || e.which === 32) {
+                    $('body').removeClass('wcDisableSelection');
+                    for (var i = 0; i < self._frameList.length; ++i) {
+                        var frame = self._frameList[i];
+                        if(frame.$frame.find(e.target).length > 0) {
+                            if(frame.$close[0] == e.target) {
+                                self.__closePanel(frame.panel());
+                                return;
+                            } else if(frame.$tabLeft[0] == e.target) {
+                                frame._tabScrollPos -= frame.$tabBar.width() / 2;
+                                if (frame._tabScrollPos < 0) {
+                                    frame._tabScrollPos = 0;
+                                }
+                                frame.__updateTabs();
+                                return;
+                            } else if(frame.$tabRight[0] == e.target) {
+                                frame._tabScrollPos += frame.$tabBar.width() / 2;
+                                frame.__updateTabs();
+                                return;
+                            }
+                            e.stopPropagation();
+                            if($(e.target).length) {
+                                $(e.target).focus();
+                            }
+                        }
                     }
                 }
             }

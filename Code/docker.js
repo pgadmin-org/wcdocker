@@ -1710,28 +1710,38 @@ define([
             // on keyup for .wcFrameButtonBar > .wcFrameButton
             function __onKeyUpPanelButton(e) {
                 if(e.which === 13 || e.which === 32) {
+                    // wcDisableSelection will disable text selection, remove it before performing respective action
                     $('body').removeClass('wcDisableSelection');
+                    // Get frame instance on which event is triggered and perform respective action
                     for (var i = 0; i < self._frameList.length; ++i) {
                         var frame = self._frameList[i];
+                        // check if event target is in frame container
                         if(frame.$frame.find(e.target).length > 0) {
                             if(frame.$close[0] == e.target) {
                                 self.__closePanel(frame.panel());
+                                e.stopPropagation();
                                 return;
                             } else if(frame.$tabLeft[0] == e.target) {
                                 frame._tabScrollPos -= frame.$tabBar.width() / 2;
                                 if (frame._tabScrollPos < 0) {
                                     frame._tabScrollPos = 0;
                                 }
-                                frame.__updateTabs();
+                                // perform tab scroll in async mode and set focus back to scroll left button
+                                setTimeout(function() {
+                                    frame.__updateTabs();
+                                    e.target.focus();
+                                }, 10);
+                                e.stopPropagation();
                                 return;
                             } else if(frame.$tabRight[0] == e.target) {
                                 frame._tabScrollPos += frame.$tabBar.width() / 2;
-                                frame.__updateTabs();
+                                // perform tab scroll in async mode and set focus back to scroll right button
+                                setTimeout(function() {
+                                    frame.__updateTabs();
+                                    e.target.focus();
+                                }, 10);
+                                e.stopPropagation();
                                 return;
-                            }
-                            e.stopPropagation();
-                            if($(e.target).length) {
-                                $(e.target).focus();
                             }
                         }
                     }

@@ -862,7 +862,8 @@ define('wcDocker/types',[], function () {
         RESTORE_LAYOUT: 'layoutRestore',
         CUSTOM_TAB_CHANGED: 'customTabChanged',
         CUSTOM_TAB_CLOSED: 'customTabClosed',
-        LAYOUT_CHANGED: 'layoutCanged'
+        LAYOUT_CHANGED: 'layoutCanged',
+        RENAME: 'panelRename'
     };
 
     /**
@@ -1694,7 +1695,16 @@ define('wcDocker/panel',[
         close: function () {
             var docker = this.docker();
             if (docker) {
-                docker.__closePanel(this);
+                if(this.closeable()) {
+                    docker.__closePanel(this);
+                }
+
+            }
+        },
+
+        rename: function() {
+            if(this.closeable()) {
+                this.__trigger(wcDocker.EVENT.RENAME, this);
             }
         },
 
@@ -24057,6 +24067,13 @@ define('wcDocker/docker',[
                                 faicon: 'times',
                                 disabled: !myFrame.panel().closeable()
                             };
+
+                            items['Rename Panel'] = {
+                                name: 'Rename Panel',
+                                faicon: 'fas fa-edit',
+                                disabled: !myFrame.panel().closeable()
+                            };
+
                             if (self.isCollapseEnabled()) {
                                 if (!myFrame.isCollapser()) {
                                     items.fold1 = {
@@ -24097,6 +24114,13 @@ define('wcDocker/docker',[
                                     faicon: 'times',
                                     disabled: !myFrame.panel().closeable()
                                 };
+
+                                items['Rename Panel'] = {
+                                    name: 'Rename Panel',
+                                    faicon: 'fas fa-edit',
+                                    disabled: !myFrame.panel().closeable()
+                                };
+
                                 if (self.isCollapseEnabled()) {
                                     if (!myFrame.isCollapser()) {
                                         items.fold1 = {
@@ -24147,7 +24171,10 @@ define('wcDocker/docker',[
                                 setTimeout(function () {
                                     myFrame.panel().close();
                                 }, 10);
-                            } else if (key === 'Detach Panel') {
+                            } else if (key == 'Rename Panel') {
+                                myFrame.panel().rename();
+                            }
+                            else if (key === 'Detach Panel') {
                                 self.movePanel(myFrame.panel(), wcDocker.DOCK.FLOAT, false);
                             } else if (key === 'Attach Panel') {
                                 var $icon = myFrame.$collapse.children('div');

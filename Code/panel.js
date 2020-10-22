@@ -673,7 +673,16 @@ define([
         close: function () {
             var docker = this.docker();
             if (docker) {
-                docker.__closePanel(this);
+                if(this.closeable()) {
+                    docker.__closePanel(this);
+                }
+
+            }
+        },
+
+        rename: function() {
+            if(this.closeable()) {
+                this.__trigger(wcDocker.EVENT.RENAME, this);
             }
         },
 

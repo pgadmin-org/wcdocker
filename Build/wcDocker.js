@@ -1140,6 +1140,7 @@ define('wcDocker/panel',[
             this._resizeVisible = true;
             this._isVisible = false;
             this._isLayoutMember = true;
+            this._isRenamable = false;
 
             if(typeof this._options.isLayoutMember != 'undefined' ||
                 this._options.isLayoutMember != null) {
@@ -1688,6 +1689,17 @@ define('wcDocker/panel',[
             return this._closeable;
         },
 
+        renamable: function(enabled) {
+            if (typeof enabled !== 'undefined') {
+                this._isRenamable = enabled ? true : false;
+                if (this._parent) {
+                    this._parent.__update();
+                }
+            }
+
+            return this._isRenamable;
+        },
+
         /**
          * Forces the window to close.
          * @function module:wcPanel#close
@@ -1703,7 +1715,7 @@ define('wcDocker/panel',[
         },
 
         rename: function() {
-            if(this.closeable()) {
+            if(this.renamable()) {
                 this.__trigger(wcDocker.EVENT.RENAME, this);
             }
         },
@@ -24071,7 +24083,7 @@ define('wcDocker/docker',[
                             items['Rename Panel'] = {
                                 name: 'Rename Panel',
                                 faicon: 'fas fa-edit',
-                                disabled: !myFrame.panel().closeable()
+                                disabled: !myFrame.panel().renamable()
                             };
 
                             if (self.isCollapseEnabled()) {
@@ -24118,7 +24130,7 @@ define('wcDocker/docker',[
                                 items['Rename Panel'] = {
                                     name: 'Rename Panel',
                                     faicon: 'fas fa-edit',
-                                    disabled: !myFrame.panel().closeable()
+                                    disabled: !myFrame.panel().renamable()
                                 };
 
                                 if (self.isCollapseEnabled()) {

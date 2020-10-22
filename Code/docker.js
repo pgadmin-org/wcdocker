@@ -935,7 +935,7 @@ define([
                             items['Rename Panel'] = {
                                 name: 'Rename Panel',
                                 faicon: 'fas fa-edit',
-                                disabled: !myFrame.panel().closeable()
+                                disabled: !myFrame.panel().renamable()
                             };
 
                             if (self.isCollapseEnabled()) {
@@ -982,7 +982,7 @@ define([
                                 items['Rename Panel'] = {
                                     name: 'Rename Panel',
                                     faicon: 'fas fa-edit',
-                                    disabled: !myFrame.panel().closeable()
+                                    disabled: !myFrame.panel().renamable()
                                 };
 
                                 if (self.isCollapseEnabled()) {

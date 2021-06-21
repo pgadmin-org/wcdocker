@@ -24568,7 +24568,7 @@ define('wcDocker/docker',[
                                 items['Detach Panel'] = {
                                     name: 'Detach Panel',
                                     faicon: 'level-up-alt',
-                                    disabled: !myFrame.panel().moveable() || !myFrame.panel().detachable() || myFrame.panel()._isPlaceholder
+                                    disabled: !myFrame.panel().moveable() || !myFrame.panel().detachable() || myFrame.panel()._isPlaceholder || self._lockLayoutLevel == wcDocker.LOCK_LAYOUT_LEVEL.FULL  || self._lockLayoutLevel == wcDocker.LOCK_LAYOUT_LEVEL.PREVENT_DOCKING
                                 };
                             }
 
@@ -24615,7 +24615,7 @@ define('wcDocker/docker',[
                                     items['Detach Panel'] = {
                                         name: 'Detach Panel',
                                         faicon: 'level-up-alt',
-                                        disabled: !myFrame.panel().moveable() || !myFrame.panel().detachable() || myFrame.panel()._isPlaceholder
+                                        disabled: !myFrame.panel().moveable() || !myFrame.panel().detachable() || myFrame.panel()._isPlaceholder || self._lockLayoutLevel == wcDocker.LOCK_LAYOUT_LEVEL.FULL || self._lockLayoutLevel == wcDocker.LOCK_LAYOUT_LEVEL.PREVENT_DOCKING
                                     };
                                 }
 
@@ -25247,8 +25247,23 @@ define('wcDocker/docker',[
                     if(self._draggingFrame._isMaximize) {
                         return true;
                     }
-                    self._draggingFrame.__move(mouse);
-                    self._draggingFrame.__update();
+
+                    var is_ghost = false;
+                    for (var i = 0; i < self._frameList.length; ++i) {
+                        if (self._focusFrame == self._frameList[i]) {
+                            var myFrame = self._frameList[self._frameList.length - 1];
+                            var rect = myFrame.__rect();
+                            self._ghost = new (self.__getClass('wcGhost'))(rect, mouse, self);
+                            self._ghost.__move(mouse);
+                            is_ghost = true;
+                            break;
+                        }
+                    }
+
+                    if(!is_ghost) {
+                        self._draggingFrame.__move(mouse, self._focusFrame);
+                        self._draggingFrame.__update();
+                    }
                 }
                 return true;
             }

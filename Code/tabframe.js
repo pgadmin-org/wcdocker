@@ -562,11 +562,10 @@ define([
             this._canScrollTabs = false;
             if (totalWidth > tabWidth - buttonSize) {
                 this._canScrollTabs = true;
-                this.$buttonBar.append(this.$tabLeft);
                 this.$buttonBar.append(this.$tabRight);
+                this.$buttonBar.append(this.$tabLeft);
                 buttonSize += this.$tabRight.outerWidth();
                 buttonSize += this.$tabLeft.outerWidth();
-
                 var scrollLimit = totalWidth - (tabWidth - buttonSize) / 2;
                 // If we are beyond our scroll limit, clamp it.
                 if (this._tabScrollPos > scrollLimit) {
@@ -586,8 +585,8 @@ define([
                 }
             } else {
                 this._tabScrollPos = 0;
-                this.$tabLeft.remove();
                 this.$tabRight.remove();
+                this.$tabLeft.remove();
             }
 
             this.$tabScroll.stop().animate({left: -this._tabScrollPos + 'px'}, 'fast');
@@ -601,8 +600,8 @@ define([
                 this.$center.toggleClass('wcScrollableY', layout._scrollable.y);
                 this.$center.toggleClass('wcOverflowVisible', layout._overflowVisible);
 
-                this.$tabLeft.remove();
                 this.$tabRight.remove();
+                this.$tabLeft.remove();
 
                 if (layout._closeable) {
                     this.$close.show();
@@ -612,8 +611,8 @@ define([
                 }
 
                 if (this._canScrollTabs) {
-                    this.$tabBar.append(this.$tabLeft);
                     this.$tabBar.append(this.$tabRight);
+                    this.$tabBar.append(this.$tabLeft);
 
                     buttonSize += this.$tabRight.outerWidth() + this.$tabLeft.outerWidth();
                 }

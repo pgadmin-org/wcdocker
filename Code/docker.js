@@ -857,6 +857,13 @@ define([
                         }
                     }
 
+                    if(_.isEmpty(windowTypes)) {
+                        windowTypes[type.name] = {
+                            name: 'Nothing to add',
+                            disabled: true
+                        };
+                    }
+
                     var separatorIndex = 0;
                     var finalItems = {};
                     var itemList = itemListOrBuildFunc;
@@ -1634,6 +1641,9 @@ define([
                         self._ghost.update(mouse, !self._creatingPanelNoFloating);
                     }
                 } else if (self._draggingFrame && !self._draggingFrameTab) {
+                    if(self._draggingFrame._isMaximize) {
+                        return true;
+                    }
                     self._draggingFrame.__move(mouse);
                     self._draggingFrame.__update();
                 }
@@ -1767,6 +1777,8 @@ define([
                                 }, 10);
                                 e.stopPropagation();
                                 return;
+                            } else if(frame.$maximise && frame.$maximise[0] === this)  {
+                                self.__maximiseFrame(frame);
                             }
                         }
                     }
@@ -1829,6 +1841,10 @@ define([
                     if (frame.$tabRight[0] === this) {
                         frame._tabScrollPos += frame.$tabBar.width() / 2;
                         frame.__updateTabs();
+                        return;
+                    }
+                    if (frame.$maximise && frame.$maximise[0] === this) {
+                        self.__maximiseFrame(frame);
                         return;
                     }
 
@@ -1998,7 +2014,7 @@ define([
             // on mousedown for .wcFrameEdge
             function __onMouseDownResizeFrame(event) {
                 var mouse = self.__mouse(event);
-                if (mouse.which === 3) {
+                if (mouse.which === 3 || self._focusFrame._isMaximize) {
                     return true;
                 }
                 $('body').addClass('wcDisableSelection');
@@ -2893,6 +2909,26 @@ define([
             }
             this.removePanel(panel, dontDestroy);
             this.__update();
+        },
+
+        __maximiseFrame: function(frame) {
+
+            var $btnIcon = frame.$maximise.children('div');
+
+            if(!frame.$frame.hasClass('wcMaximize')) {
+                $btnIcon.removeClass('fa-expand-alt');
+                $btnIcon.addClass('fa-compress-alt');
+                frame._isMaximize = true;
+                frame.$frame.addClass('wcMaximize');
+            }
+            else {
+                $btnIcon.removeClass('fa-compress-alt');
+                $btnIcon.addClass('fa-expand-alt');
+                frame._isMaximize = false;
+                frame.$frame.removeClass('wcMaximize');
+            }
+            frame.__updateTabs();
+            frame.__update();
         },
 
         // Triggers a LAYOUT_CHANGED event on the docker

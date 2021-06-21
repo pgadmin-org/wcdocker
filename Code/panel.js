@@ -119,6 +119,7 @@ define([
             this._isVisible = false;
             this._isLayoutMember = true;
             this._isRenamable = false;
+            this._canMaximise = false;
 
             if(typeof this._options.isLayoutMember != 'undefined' ||
                 this._options.isLayoutMember != null) {
@@ -679,6 +680,51 @@ define([
         },
 
         /**
+         * Gets, or Sets whether this dock window can be renamed by the user.
+         * @function module:wcPanel#renamable
+         * @param {Boolean} [enabled] - If supplied, toggles whether it can be renamed.
+         * @returns {Boolean} the current renamable status.
+         */
+        renamable: function(enabled) {
+            if (typeof enabled !== 'undefined') {
+                this._isRenamable = enabled ? true : false;
+                if (this._parent) {
+                    this._parent.__update();
+                }
+            }
+
+            return this._isRenamable;
+        },
+
+        /**
+         * Gets, or Sets whether this dock window can be maximised by the user.
+         * @function module:wcPanel#maximisable
+         * @param {Boolean} [enabled] - If supplied, toggles whether it can be maximised.
+         * @returns {Boolean} the current maximised status.
+         */
+        maximisable: function(enabled) {
+            if (typeof enabled !== 'undefined') {
+                this._canMaximise = enabled ? true : false;
+                if (this._parent) {
+                    this._parent.__update();
+                }
+            }
+
+            return this._canMaximise;
+        },
+
+        /**
+         * Maximises the window.
+         * @function module:wcPanel#maximise
+         */
+        maximise: function() {
+            var docker = this.docker();
+            if (docker && this._parent && this._parent.instanceOf('wcFrame')) {
+               docker.__maximiseFrame(this._parent);
+            }
+        },
+
+        /**
          * Forces the window to close.
          * @function module:wcPanel#close
          */
@@ -692,6 +738,10 @@ define([
             }
         },
 
+        /**
+         * Renames the window.
+         * @function module:wcPanel#rename
+         */
         rename: function() {
             if(this.renamable()) {
                 this.__trigger(wcDocker.EVENT.RENAME, this);
@@ -854,6 +904,10 @@ define([
             }
             if (this._options.faicon) {
                 this.faicon(this._options.faicon);
+            }
+            if(typeof this._options.canMaximise != 'undefined' ||
+                this._options.canMaximise != null) {
+                this._canMaximise = this._options.canMaximise;
             }
         },
 

@@ -30,6 +30,7 @@ define([
             this.$container = $(container);
             this._parent = parent;
             this._isFloating = isFloating;
+            this._isMaximize = false;
 
             /**
              * The outer frame element.
@@ -44,6 +45,7 @@ define([
             this.$tabLeft = null;
             this.$tabRight = null;
             this.$close = null;
+            this.$maximise = null;
             this.$collapse = null;
             this.$top = null;
             this.$bottom = null;
@@ -374,7 +376,8 @@ define([
             this.$center = $('<div class="wcFrameCenter wcPanelBackground">');
             this.$tabLeft = $('<div class="wcFrameButton" title="Scroll tabs to the left." aria-label="Scroll left" tabindex="0"><span class="fa fa-chevron-left"></span></div>');
             this.$tabRight = $('<div class="wcFrameButton" title="Scroll tabs to the right." aria-label="Scroll right" tabindex="0"><span class="fa fa-chevron-right"></span></div>');
-            this.$close = $('<div class="wcFrameButton" title="Close the currently active panel tab" aria-label="Close panel" tabindex="0"><div class="fa fa-times"></div></div>');
+            this.$maximise = $('<div class="wcFrameButton" title="Maximize active panel tab" aria-label="Maximize Panel" tabindex="0"><div class="fa fa-expand-alt"></div></div>');
+            this.$close = $('<div class="wcFrameButton" title="Close the currently active panel tab" aria-label="Close panel" tabindex="1"><div class="fa fa-times"></div></div>');
 
             this.$collapse = $('<div class="wcFrameButton" title="Collapse the active panel"><div class="fa fa-download"></div>C</div>');
             this.$buttonBar = $('<div class="wcFrameButtonBar">');
@@ -384,7 +387,9 @@ define([
             this.$tabBar.append(this.$tabButtonBar);
             this.$frame.append(this.$buttonBar);
             this.$buttonBar.append(this.$close);
+            this.$buttonBar.append(this.$maximise);
             this.$buttonBar.append(this.$collapse);
+
             this.$frame.append(this.$center);
 
             if (this._isFloating) {
@@ -423,29 +428,42 @@ define([
 
             // Floating windows manage their own sizing.
             if (this._isFloating) {
-                var left = (this._pos.x * width) - this._size.x / 2;
-                var top = (this._pos.y * height) - this._size.y / 2;
 
-                if (top < 0) {
-                    top = 0;
+                // If window is maximised, reset left & top
+                if(this._isMaximize) {
+                    top = left = 0;
+                    // getting height of whole body irrespective of any number of navbar
+                    height = $('body').height();
                 }
+                else {
 
-                if (left + this._size.x / 2 < 0) {
-                    left = -this._size.x / 2;
-                }
+                    var left = (this._pos.x * width) - this._size.x / 2;
+                    var top = (this._pos.y * height) - this._size.y / 2;
 
-                if (left + this._size.x / 2 > width) {
-                    left = width - this._size.x / 2;
-                }
+                    if (top < 0) {
+                        top = 0;
+                    }
 
-                if (top + parseInt(this.$center.css('top')) > height) {
-                    top = height - parseInt(this.$center.css('top'));
+                    if (left + this._size.x / 2 < 0) {
+                        left = -this._size.x / 2;
+                    }
+
+                    if (left + this._size.x / 2 > width) {
+                        left = width - this._size.x / 2;
+                    }
+
+                    if (top + parseInt(this.$center.css('top')) > height) {
+                        top = height - parseInt(this.$center.css('top'));
+                    }
+
+                    width = this._size.x;
+                    height = this._size.y;
                 }
 
                 this.$frame.css('left', left + 'px');
                 this.$frame.css('top', top + 'px');
-                this.$frame.css('width', this._size.x + 'px');
-                this.$frame.css('height', this._size.y + 'px');
+                this.$frame.css('width', width + 'px');
+                this.$frame.css('height', height + 'px');
             }
 
             if (width !== this._lastSize.x || height !== this._lastSize.y) {
@@ -757,10 +775,10 @@ define([
                 if (totalWidth > tabWidth - buttonSize) {
                     this._canScrollTabs = this._titleVisible;
                     if (this._canScrollTabs) {
-                        this.$tabButtonBar.append(this.$tabLeft);
                         this.$tabButtonBar.append(this.$tabRight);
-                        buttonSize += this.$tabRight.outerWidth();
+                        this.$tabButtonBar.append(this.$tabLeft);
                         buttonSize += this.$tabLeft.outerWidth();
+                        buttonSize += this.$tabRight.outerWidth();
                     }
 
                     var scrollLimit = totalWidth - (tabWidth - buttonSize) / 2;
@@ -782,8 +800,8 @@ define([
                     }
                 } else {
                     this._tabScrollPos = 0;
-                    this.$tabLeft.remove();
                     this.$tabRight.remove();
+                    this.$tabLeft.remove();
                 }
 
                 this.$tabScroll.stop().animate({left: -this._tabScrollPos + 'px'}, 'fast');
@@ -800,9 +818,10 @@ define([
             var tabButtonSize = 0;
             var panel = this.panel();
 
-            this.$tabLeft.remove();
             this.$tabRight.remove();
+            this.$tabLeft.remove();
             this.$close.hide();
+            this.$maximise.hide();
             this.$collapse.hide();
 
             while (this._buttonList.length) {
@@ -817,6 +836,10 @@ define([
                 this.$center.toggleClass('wcOverflowVisible', panel.overflowVisible());
 
                 if (!this.isCollapser() || this.isExpanded()) {
+                    if (panel.maximisable() && this._isFloating) {
+                        this.$maximise.show();
+                        buttonSize += this.$maximise.outerWidth();
+                    }
                     if (panel.closeable()) {
                         this.$close.show();
                         buttonSize += this.$close.outerWidth();
@@ -945,8 +968,8 @@ define([
                 }
 
                 if (this._canScrollTabs) {
-                    this.$tabButtonBar.append(this.$tabLeft);
                     this.$tabButtonBar.append(this.$tabRight);
+                    this.$tabButtonBar.append(this.$tabLeft);
 
                     tabButtonSize += this.$tabRight.outerWidth() + this.$tabLeft.outerWidth();
                 }

@@ -321,6 +321,7 @@ $(document).ready(function() {
       faicon: 'comment-o',
       onCreate: function(myPanel) {
         myPanel.layout().scene().css('padding', '10px');
+        myPanel.maximisable(true);
 
         // Create our chat window.
         var $senderLabel    = $('<div style="white-space:nowrap;">Sender Name: </div>');

@@ -25237,14 +25237,16 @@ define('wcDocker/docker',[
                     }
 
                     var is_ghost = false;
-                    for (var i = 0; i < self._frameList.length; ++i) {
-                        if (self._focusFrame == self._frameList[i]) {
-                            var myFrame = self._frameList[self._frameList.length - 1];
-                            var rect = myFrame.__rect();
-                            self._ghost = new (self.__getClass('wcGhost'))(rect, mouse, self);
-                            self._ghost.__move(mouse);
-                            is_ghost = true;
-                            break;
+                    if(self._focusFrame._panelList.length > 1) {
+                        for (var i = 0; i < self._frameList.length; ++i) {
+                            if (self._focusFrame == self._frameList[i]) {
+                                var myFrame = self._frameList[self._frameList.length - 1];
+                                var rect = myFrame.__rect();
+                                self._ghost = new (self.__getClass('wcGhost'))(rect, mouse, self);
+                                self._ghost.__move(mouse);
+                                is_ghost = true;
+                                break;
+                            }
                         }
                     }
 

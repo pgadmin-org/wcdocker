@@ -1,4 +1,5 @@
-(function () {/**
+(function () {
+/**
  * @license almond 0.3.2 Copyright jQuery Foundation and other contributors.
  * Released under MIT license, http://github.com/requirejs/almond/LICENSE
  */
@@ -3421,11 +3422,6 @@ define('wcDocker/frame',[
         removePanel: function (panel) {
             for (var i = 0; i < this._panelList.length; ++i) {
                 if (this._panelList[i] === panel) {
-                    if (this.isCollapser()) {
-                        this._curTab = -1;
-                    } else if (this._curTab >= i) {
-                        this._curTab--;
-                    }
 
                     // Only null out the container if it is still attached to this frame.
                     if (this._panelList[i]._parent === this) {
@@ -3435,6 +3431,12 @@ define('wcDocker/frame',[
 
                     this._panelList.splice(i, 1);
                     panel._isVisible = false;
+
+                    if (this.isCollapser()) {
+                        this._curTab = -1;
+                    } else if (this._curTab >= i) {
+                        this._curTab = this.getCloseableTabIndex();
+                    }
                     break;
                 }
             }
@@ -3447,6 +3449,34 @@ define('wcDocker/frame',[
 
             this.__updateTabs();
             return this._panelList.length > 0;
+        },
+
+        getCloseableTabIndex: function() {
+            var tabIndexToShow,
+              left = this._curTab,
+              right = this._curTab > 0 ? (this._curTab - 1) : this._curTab;
+
+            while(tabIndexToShow == undefined) {
+                if(this._curTab == 0 && this._panelList.length == 1) {
+                    tabIndexToShow = this._curTab;
+                }
+                else if(left > 0) {
+                    left = left - 1;
+                    if(this._panelList[left].closeable()) {
+                        tabIndexToShow = left;
+                    }
+                }
+                else if(right < (this._panelList.length-1)) {
+                    right = (right + 1) < this._panelList.length ? (right + 1) : right;
+                    if(this._panelList[right].closeable()) {
+                        tabIndexToShow = right;
+                    }
+                }
+                else {
+                    tabIndexToShow = this._curTab - 1;
+                }
+            }
+            return tabIndexToShow;
         },
 
         /**
@@ -25237,6 +25267,7 @@ define('wcDocker/docker',[
                     }
 
                     var is_ghost = false;
+                    // If panels list contains only one panel don't move it is as ghost.
                     if(self._focusFrame._panelList.length > 1) {
                         for (var i = 0; i < self._frameList.length; ++i) {
                             if (self._focusFrame == self._frameList[i]) {

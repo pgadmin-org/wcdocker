@@ -251,11 +251,6 @@ define([
         removePanel: function (panel) {
             for (var i = 0; i < this._panelList.length; ++i) {
                 if (this._panelList[i] === panel) {
-                    if (this.isCollapser()) {
-                        this._curTab = -1;
-                    } else if (this._curTab >= i) {
-                        this._curTab--;
-                    }
 
                     // Only null out the container if it is still attached to this frame.
                     if (this._panelList[i]._parent === this) {
@@ -265,6 +260,12 @@ define([
 
                     this._panelList.splice(i, 1);
                     panel._isVisible = false;
+
+                    if (this.isCollapser()) {
+                        this._curTab = -1;
+                    } else if (this._curTab >= i) {
+                        this._curTab = this.getCloseableTabIndex();
+                    }
                     break;
                 }
             }
@@ -277,6 +278,34 @@ define([
 
             this.__updateTabs();
             return this._panelList.length > 0;
+        },
+
+        getCloseableTabIndex: function() {
+            var tabIndexToShow,
+              left = this._curTab,
+              right = this._curTab > 0 ? (this._curTab - 1) : this._curTab;
+
+            while(tabIndexToShow == undefined) {
+                if(this._curTab == 0 && this._panelList.length == 1) {
+                    tabIndexToShow = this._curTab;
+                }
+                else if(left > 0) {
+                    left = left - 1;
+                    if(this._panelList[left].closeable()) {
+                        tabIndexToShow = left;
+                    }
+                }
+                else if(right < (this._panelList.length-1)) {
+                    right = (right + 1) < this._panelList.length ? (right + 1) : right;
+                    if(this._panelList[right].closeable()) {
+                        tabIndexToShow = right;
+                    }
+                }
+                else {
+                    tabIndexToShow = this._curTab - 1;
+                }
+            }
+            return tabIndexToShow;
         },
 
         /**

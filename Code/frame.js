@@ -251,7 +251,6 @@ define([
         removePanel: function (panel) {
             for (var i = 0; i < this._panelList.length; ++i) {
                 if (this._panelList[i] === panel) {
-
                     // Only null out the container if it is still attached to this frame.
                     if (this._panelList[i]._parent === this) {
                         this._panelList[i].__container(null);
@@ -264,7 +263,7 @@ define([
                     if (this.isCollapser()) {
                         this._curTab = -1;
                     } else if (this._curTab >= i) {
-                        this._curTab = this.getCloseableTabIndex();
+                        this._curTab--;
                     }
                     break;
                 }
@@ -276,36 +275,47 @@ define([
                 }
             }
 
+            if(!this.collapse() && this._panelList.length) {
+                this._curTab = this.getCloseableTabIndex();
+            }
+
             this.__updateTabs();
             return this._panelList.length > 0;
         },
 
+        /**
+         * Gets the index of tab which is closeable, if list does not contain any closeable tabs,
+         * it will return index of neighbor tab which is 1 less than the closing tab.
+         * This function is only useful for non-collapsible panels.
+         * @function module:wcFrame#getCloseableTabIndex
+         * @returns {Number} - returns closeableTabIndex
+         */
         getCloseableTabIndex: function() {
-            var tabIndexToShow,
+            var closeableTabIndex,
               left = this._curTab,
-              right = this._curTab > 0 ? (this._curTab - 1) : this._curTab;
+              right = this._curTab > 0 && (this._curTab+1) < this._panelList.length ? this._curTab + 1 : this._curTab;
 
-            while(tabIndexToShow == undefined) {
+            while(closeableTabIndex == undefined) {
                 if(this._curTab == 0 && this._panelList.length == 1) {
-                    tabIndexToShow = this._curTab;
+                    closeableTabIndex = this._curTab;
                 }
-                else if(left > 0) {
-                    left = left - 1;
-                    if(this._panelList[left].closeable()) {
-                        tabIndexToShow = left;
-                    }
-                }
-                else if(right < (this._panelList.length-1)) {
-                    right = (right + 1) < this._panelList.length ? (right + 1) : right;
+                else if(right < this._panelList.length) {
                     if(this._panelList[right].closeable()) {
-                        tabIndexToShow = right;
+                        closeableTabIndex = right;
                     }
+                    right = right + 1;
+                }
+                else if(left >= 0) {
+                    if(this._panelList[left].closeable()) {
+                        closeableTabIndex = left;
+                    }
+                    left = left - 1;
                 }
                 else {
-                    tabIndexToShow = this._curTab - 1;
+                    closeableTabIndex = this._curTab > 0 ? this._curTab - 1 : this._curTab;
                 }
             }
-            return tabIndexToShow;
+            return closeableTabIndex;
         },
 
         /**

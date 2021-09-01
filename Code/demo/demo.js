@@ -322,6 +322,7 @@ $(document).ready(function() {
       onCreate: function(myPanel) {
         myPanel.layout().scene().css('padding', '10px');
         myPanel.maximisable(true);
+        myPanel.closeable(false);
 
         // Create our chat window.
         var $senderLabel    = $('<div style="white-space:nowrap;">Sender Name: </div>');

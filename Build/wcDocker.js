@@ -3422,6 +3422,12 @@ define('wcDocker/frame',[
         removePanel: function (panel) {
             for (var i = 0; i < this._panelList.length; ++i) {
                 if (this._panelList[i] === panel) {
+                    if (this.isCollapser()) {
+                        this._curTab = -1;
+                    } else if (this._curTab >= i) {
+                        this._curTab = this.getCloseableTabIndex();
+                    }
+
                     // Only null out the container if it is still attached to this frame.
                     if (this._panelList[i]._parent === this) {
                         this._panelList[i].__container(null);
@@ -3430,12 +3436,6 @@ define('wcDocker/frame',[
 
                     this._panelList.splice(i, 1);
                     panel._isVisible = false;
-
-                    if (this.isCollapser()) {
-                        this._curTab = -1;
-                    } else if (this._curTab >= i) {
-                        this._curTab--;
-                    }
                     break;
                 }
             }
@@ -3444,10 +3444,6 @@ define('wcDocker/frame',[
                 if (!this.collapse() && this._panelList.length) {
                     this._curTab = 0;
                 }
-            }
-
-            if(!this.collapse() && this._panelList.length) {
-                this._curTab = this.getCloseableTabIndex();
             }
 
             this.__updateTabs();
@@ -3463,26 +3459,25 @@ define('wcDocker/frame',[
          */
         getCloseableTabIndex: function() {
             var closeableTabIndex,
-              left = this._curTab,
-              right = this._curTab > 0 && (this._curTab+1) < this._panelList.length ? this._curTab + 1 : this._curTab;
+              left = right = this._curTab;
 
             while(closeableTabIndex == undefined) {
-                if(this._curTab == 0 && this._panelList.length == 1) {
+                if(this._curTab == 0 && this._panelList.length == 1) { // When resetting layout, the placeholder panels are removed, & this condition is satisfied.
                     closeableTabIndex = this._curTab;
                 }
-                else if(right < this._panelList.length) {
-                    if(this._panelList[right].closeable()) {
+                else if(right < (this._panelList.length-1)) { // checking the closeable panels towards right from current tab
+                    if(this._panelList[right + 1].closeable()) {
                         closeableTabIndex = right;
                     }
                     right = right + 1;
                 }
-                else if(left >= 0) {
-                    if(this._panelList[left].closeable()) {
-                        closeableTabIndex = left;
+                else if(left > 0) { // checking the closeable panels towards left from current tab
+                    if(this._panelList[left - 1].closeable()) {
+                        closeableTabIndex = left - 1;
                     }
                     left = left - 1;
                 }
-                else {
+                else { // if above conditions gets exhausts, i.e. there are no enough closeable tabs, then go with default selection process
                     closeableTabIndex = this._curTab > 0 ? this._curTab - 1 : this._curTab;
                 }
             }

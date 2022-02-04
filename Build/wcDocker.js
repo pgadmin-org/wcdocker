@@ -3723,11 +3723,8 @@ define('wcDocker/frame',[
             data.tab = this._curTab;
             data.panels = [];
             for (var i = 0; i < this._panelList.length; ++i) {
-                if(!this._panelList[i]._isLayoutMember) {
-                    return {};
-                } else {
+                this._panelList[i]._isLayoutMember &&
                     data.panels.push(this._panelList[i].__save());
-                }
             }
             return data;
         },
@@ -3749,12 +3746,11 @@ define('wcDocker/frame',[
                         panel.__restore(data.panels[i], docker);
                         this._panelList.push(panel);
                     }
-                } else if(i == this._curTab){
-                    /* If the restore failed panel was the current tab
-                     * then set the current tab to last available panel tab
-                     */
-                    this._curTab = this._panelList.length - 1;
                 }
+            }
+            /* If curTab is out of range, select the last one */
+            if(this._panelList.length <= this._curTab) {
+                this._curTab = this._panelList.length - 1;
             }
 
             this.__update();

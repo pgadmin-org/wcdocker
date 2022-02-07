@@ -3726,6 +3726,10 @@ define('wcDocker/frame',[
                 this._panelList[i]._isLayoutMember &&
                     data.panels.push(this._panelList[i].__save());
             }
+            /* If there are no panels eligible for save then return empty */
+            if(data.panels.length === 0) {
+                return {};
+            }
             return data;
         },
 

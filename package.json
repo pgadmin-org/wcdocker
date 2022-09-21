@@ -9,6 +9,7 @@
   "main": "Build/wcDocker.min.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
+    "bootstrap": "^5.2.1",
     "FileSaver": "^0.10.0",
     "jquery": "^3.3.1",
     "jquery-contextmenu": "^2.6.4"

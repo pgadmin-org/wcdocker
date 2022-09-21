@@ -408,12 +408,12 @@ define([
             this.$tabBar = $('<div class="wcFrameTitleBar">');
             this.$tabScroll = $('<div class="wcTabScroller">');
             this.$center = $('<div class="wcFrameCenter wcPanelBackground">');
-            this.$tabLeft = $('<div class="wcFrameButton" title="Scroll tabs to the left." aria-label="Scroll left" tabindex="0"><span class="fa fa-chevron-left"></span></div>');
-            this.$tabRight = $('<div class="wcFrameButton" title="Scroll tabs to the right." aria-label="Scroll right" tabindex="0"><span class="fa fa-chevron-right"></span></div>');
-            this.$maximise = $('<div class="wcFrameButton" title="Maximize active panel tab" aria-label="Maximize Panel" tabindex="0"><div class="fa fa-expand-alt"></div></div>');
-            this.$close = $('<div class="wcFrameButton" title="Close the currently active panel tab" aria-label="Close panel" tabindex="1"><div class="fa fa-times"></div></div>');
+            this.$tabLeft = $('<div class="wcFrameButton" title="Scroll tabs to the left." aria-label="Scroll left" data-toggle="tooltip" tabindex="0"><span class="fa fa-chevron-left"></span></div>');
+            this.$tabRight = $('<div class="wcFrameButton" title="Scroll tabs to the right." aria-label="Scroll right" data-toggle="tooltip" tabindex="0"><span class="fa fa-chevron-right"></span></div>');
+            this.$maximise = $('<div class="wcFrameButton" title="Maximize" aria-label="Maximize Panel" data-toggle="tooltip" tabindex="0"><div class="fa fa-expand-alt"></div></div>');
+            this.$close = $('<div class="wcFrameButton" title="Close" aria-label="Close panel" data-toggle="tooltip" tabindex="1"><div class="fa fa-times"></div></div>');
 
-            this.$collapse = $('<div class="wcFrameButton" title="Collapse the active panel"><div class="fa fa-download"></div>C</div>');
+            this.$collapse = $('<div class="wcFrameButton" title="Collapse the active panel" data-toggle="tooltip"><div class="fa fa-download"></div>C</div>');
             this.$buttonBar = $('<div class="wcFrameButtonBar">');
             this.$tabButtonBar = $('<div class="wcFrameButtonBar">');
 
@@ -971,6 +971,8 @@ define([
                     for (var i = 0; i < panel._buttonList.length; ++i) {
                         var buttonData = panel._buttonList[i];
                         var $button = $('<div>');
+                        var $shortcutKeyContainer = $('<div class="tooltip-shortcut">');
+                        var $tooltipConatiner = $('<div>')
                         var buttonClass = buttonData.className;
                         $button.addClass('wcFrameButton');
                         if (buttonData.parentClass)
@@ -990,6 +992,20 @@ define([
                         $button.text(buttonData.text);
                         if(buttonData.ariaLabel) {
                             $button.attr('aria-label', buttonData.ariaLabel);
+                        }
+                        //atribute to display tooltip
+                        $button.attr('data-toggle','tooltip')
+                        //to display tooltip with shortcut
+                        if(buttonData.key){
+                            $button.attr('data-html','true')
+                            $.each(buttonData.key,function(index,data) {
+                                var child = $('<div class="tooltip-shortcut-key">')
+                                child.text(data)
+                                $shortcutKeyContainer.append(child)
+                            })
+                            $tooltipConatiner.text(buttonData.tip)
+                            $tooltipConatiner.append($shortcutKeyContainer)
+                            $button.attr('title',$tooltipConatiner.html())
                         }
                         if (buttonClass) {
                             $button.prepend($('<div class="' + buttonClass + '">'));
@@ -1026,6 +1042,13 @@ define([
                 }
 
                 panel.__update();
+
+                //enabling tooltip after panel creation
+                $('[data-toggle="tooltip"]').tooltip({
+                    trigger: 'hover'
+                }).on('click mousedown mouseup', function () {
+                    $('[data-toggle="tooltip"]').tooltip('hide');
+                });
 
                 this.$center.scrollLeft(panel._scroll.x);
                 this.$center.scrollTop(panel._scroll.y);

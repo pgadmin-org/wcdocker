@@ -1331,11 +1331,16 @@ define('wcDocker/panel',[
         /**
          * updates button in the panel for tooltip.
          * @function module:wcPanel#updateButton
-         * @param {Array} buttons - List of buttons to update.
+         * @param {String} name - Button name to be updated
+         * @param {Object} data - object with details to update.
          * @returns {Boolean} - Success or failure.
          */
-        updateButton: function (buttons) {
-            this._buttonList = buttons
+        updateButton: function (name, data) {
+            for (var i = 0; i < this._buttonList.length; ++i) {
+                if (this._buttonList[i].name === name) {
+                    Object.assign(this._buttonList[i], data)
+                }
+            }
             if (this._parent && this._parent.instanceOf('wcFrame')) {
                 this._parent.__update();
                 return true;
@@ -4156,8 +4161,8 @@ define('wcDocker/frame',[
                     for (var i = 0; i < panel._buttonList.length; ++i) {
                         var buttonData = panel._buttonList[i];
                         var $button = $('<div>');
-                        var $shortcutKeyContainer = $('<div class="tooltip-shortcut">');
-                        var $tooltipConatiner = $('<div>')
+                        var $shortcutKeyContainer = $('<div class="wcTooltip-shortcut">');
+                        var $tooltipContainer = $('<div>')
                         var buttonClass = buttonData.className;
                         $button.addClass('wcFrameButton');
                         if (buttonData.parentClass)
@@ -4182,15 +4187,14 @@ define('wcDocker/frame',[
                         $button.attr('data-toggle','tooltip')
                         //to display tooltip with shortcut
                         if(buttonData.key){
-                            $button.attr('data-html','true')
                             $.each(buttonData.key,function(index,data) {
-                                var child = $('<div class="tooltip-shortcut-key">')
+                                var child = $('<div class="wcTooltip-shortcut-key">')
                                 child.text(data)
                                 $shortcutKeyContainer.append(child)
                             })
-                            $tooltipConatiner.text(buttonData.tip)
-                            $tooltipConatiner.append($shortcutKeyContainer)
-                            $button.attr('title',$tooltipConatiner.html())
+                            $tooltipContainer.text(buttonData.tip)
+                            $tooltipContainer.append($shortcutKeyContainer)
+                            $button.attr('title',$tooltipContainer.html())
                         }
                         if (buttonClass) {
                             $button.prepend($('<div class="' + buttonClass + '">'));
@@ -4230,7 +4234,8 @@ define('wcDocker/frame',[
 
                 //enabling tooltip after panel creation
                 $('[data-toggle="tooltip"]').tooltip({
-                    trigger: 'hover'
+                    trigger: 'hover',
+                    html: true
                 }).on('click mousedown mouseup', function () {
                     $('[data-toggle="tooltip"]').tooltip('hide');
                 });

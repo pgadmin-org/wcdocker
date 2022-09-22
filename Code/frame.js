@@ -971,8 +971,8 @@ define([
                     for (var i = 0; i < panel._buttonList.length; ++i) {
                         var buttonData = panel._buttonList[i];
                         var $button = $('<div>');
-                        var $shortcutKeyContainer = $('<div class="tooltip-shortcut">');
-                        var $tooltipConatiner = $('<div>')
+                        var $shortcutKeyContainer = $('<div class="wcTooltip-shortcut">');
+                        var $tooltipContainer = $('<div>')
                         var buttonClass = buttonData.className;
                         $button.addClass('wcFrameButton');
                         if (buttonData.parentClass)
@@ -997,15 +997,14 @@ define([
                         $button.attr('data-toggle','tooltip')
                         //to display tooltip with shortcut
                         if(buttonData.key){
-                            $button.attr('data-html','true')
                             $.each(buttonData.key,function(index,data) {
-                                var child = $('<div class="tooltip-shortcut-key">')
+                                var child = $('<div class="wcTooltip-shortcut-key">')
                                 child.text(data)
                                 $shortcutKeyContainer.append(child)
                             })
-                            $tooltipConatiner.text(buttonData.tip)
-                            $tooltipConatiner.append($shortcutKeyContainer)
-                            $button.attr('title',$tooltipConatiner.html())
+                            $tooltipContainer.text(buttonData.tip)
+                            $tooltipContainer.append($shortcutKeyContainer)
+                            $button.attr('title',$tooltipContainer.html())
                         }
                         if (buttonClass) {
                             $button.prepend($('<div class="' + buttonClass + '">'));
@@ -1045,7 +1044,8 @@ define([
 
                 //enabling tooltip after panel creation
                 $('[data-toggle="tooltip"]').tooltip({
-                    trigger: 'hover'
+                    trigger: 'hover',
+                    html: true
                 }).on('click mousedown mouseup', function () {
                     $('[data-toggle="tooltip"]').tooltip('hide');
                 });

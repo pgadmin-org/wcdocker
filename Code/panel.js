@@ -310,11 +310,16 @@ define([
         /**
          * updates button in the panel for tooltip.
          * @function module:wcPanel#updateButton
-         * @param {Array} buttons - List of buttons to update.
+         * @param {String} name - Button name to be updated
+         * @param {Object} data - object with details to update.
          * @returns {Boolean} - Success or failure.
          */
-        updateButton: function (buttons) {
-            this._buttonList = buttons
+        updateButton: function (name, data) {
+            for (var i = 0; i < this._buttonList.length; ++i) {
+                if (this._buttonList[i].name === name) {
+                    Object.assign(this._buttonList[i], data)
+                }
+            }
             if (this._parent && this._parent.instanceOf('wcFrame')) {
                 this._parent.__update();
                 return true;

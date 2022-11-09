@@ -360,13 +360,12 @@ define([
                 if (this._buttonList[i].name === name) {
                     if (typeof enableState !== 'undefined') {
                         this._buttonList[i].enabled = enableState;
-                        if (this._parent && this._parent.instanceOf('wcFrame')) {
-                            this._parent.__onTabChange();
-                        }
                     }
 
-                    if (this._parent && this._parent.instanceOf('wcFrame')) {
-                        this._parent.__update();
+                    if (this._buttonList[i].enabled === false) {
+                        this._parent.$buttonBar.find('[aria-label="'+name+'"]').addClass('disabled');
+                    } else {
+                        this._parent.$buttonBar.find('[aria-label="'+name+'"]').removeClass('disabled');
                     }
 
                     return true;

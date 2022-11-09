@@ -1381,13 +1381,12 @@ define('wcDocker/panel',[
                 if (this._buttonList[i].name === name) {
                     if (typeof enableState !== 'undefined') {
                         this._buttonList[i].enabled = enableState;
-                        if (this._parent && this._parent.instanceOf('wcFrame')) {
-                            this._parent.__onTabChange();
-                        }
                     }
 
-                    if (this._parent && this._parent.instanceOf('wcFrame')) {
-                        this._parent.__update();
+                    if (this._buttonList[i].enabled === false) {
+                        this._parent.$buttonBar.find('[aria-label="'+name+'"]').addClass('disabled');
+                    } else {
+                        this._parent.$buttonBar.find('[aria-label="'+name+'"]').removeClass('disabled');
                     }
 
                     return true;
@@ -3616,6 +3615,13 @@ define('wcDocker/frame',[
 
             this.$frame.append(this.$center);
 
+            this.$buttonBar.find('[data-toggle="tooltip"]').tooltip({
+                trigger: 'hover',
+                html: true
+            }).on('mouseup', function () {
+                $('[data-toggle="tooltip"]').tooltip('hide');
+            });
+
             if (this._isFloating) {
                 this.$top = $('<div class="wcFrameEdgeN wcFrameEdge"></div>').css('top', '-'+this._borderWidth).css('left', '0px').css('right', '0px');
                 this.$bottom = $('<div class="wcFrameEdgeS wcFrameEdge"></div>').css('bottom', '-'+this._borderWidth).css('left', '0px').css('right', '0px');
@@ -4049,7 +4055,11 @@ define('wcDocker/frame',[
             this.$collapse.hide();
 
             while (this._buttonList.length) {
-                this._buttonList.pop().remove();
+                const btn = this._buttonList.pop()
+                if (btn.tooltip) {
+                    btn.tooltip('dispose')
+                }
+                btn.remove()
             }
 
             if (panel) {
@@ -4204,6 +4214,11 @@ define('wcDocker/frame',[
                         this.$buttonBar.append($button);
                         buttonSize += $button.outerWidth();
                     }
+                    //enable tooltip
+                    this.$buttonBar.find('[data-toggle="tooltip"]').tooltip({
+                        trigger: 'hover',
+                        html: true
+                    })  
                 }
 
                 if (this._canScrollTabs) {
@@ -4231,14 +4246,6 @@ define('wcDocker/frame',[
                 }
 
                 panel.__update();
-
-                //enabling tooltip after panel creation
-                $('[data-toggle="tooltip"]').tooltip({
-                    trigger: 'hover',
-                    html: true
-                }).on('click mousedown mouseup', function () {
-                    $('[data-toggle="tooltip"]').tooltip('hide');
-                });
 
                 this.$center.scrollLeft(panel._scroll.x);
                 this.$center.scrollTop(panel._scroll.y);
